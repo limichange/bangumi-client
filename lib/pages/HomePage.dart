@@ -1,3 +1,4 @@
+import 'package:bangumi/api/API.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,7 +19,9 @@ class HomePage extends StatelessWidget {
               child: Text(
                 '加入我的收藏',
               ),
-              onPressed: () {},
+              onPressed: () {
+                API.test();
+              },
               color: Colors.pink[300],
               textColor: Colors.white,
             ),
