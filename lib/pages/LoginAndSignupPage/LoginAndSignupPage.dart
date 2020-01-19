@@ -1,27 +1,28 @@
+import 'package:bangumi/pages/LoginAndSignupPage/LoginForm.dart';
+import 'package:bangumi/pages/LoginAndSignupPage/SignupForm.dart';
 import 'package:flutter/material.dart';
 
 class LoginAndSignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(
+                text: "登录",
+              ),
+              Tab(
+                text: "注册",
+              ),
             ],
           ),
-          title: Text('Tabs Demo'),
+          title: Text('欢迎 (*｀∀´*)ノ亻!'),
         ),
         body: TabBarView(
-          children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-          ],
+          children: [LoginForm(), SignupForm()],
         ),
       ),
     );
