@@ -1,4 +1,5 @@
 import 'package:bangumi/api/API.dart';
+import 'package:bangumi/reportError.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +23,11 @@ class HomePage extends StatelessWidget {
               onPressed: () {
 //                API.test();
 
-                throw new Error();
+                try {
+                  throw new Error();
+                } catch (error, stackTrace) {
+                  reportError(error, stackTrace);
+                }
               },
               color: Colors.pink[300],
               textColor: Colors.white,
