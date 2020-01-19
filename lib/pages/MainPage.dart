@@ -1,7 +1,7 @@
 import 'package:bangumi/pages/HomePage.dart';
 import 'package:bangumi/pages/MePage.dart';
 import 'package:flutter/material.dart';
-import 'package:bangumi/pages/MyListPage.dart';
+import 'package:bangumi/pages/MyListPage/MyListPage.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -34,11 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,

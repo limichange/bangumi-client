@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 class MePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return (Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text("我的"),
+      ),
+      body: (Column(
         children: <Widget>[
           RaisedButton(
             child: Text(
@@ -22,7 +26,7 @@ class MePage extends StatelessWidget {
             textColor: Colors.white,
           ),
         ],
-      ),
-    ));
+      )),
+    );
   }
 }
