@@ -20,7 +20,9 @@ class HomePage extends StatelessWidget {
                 '加入我的收藏',
               ),
               onPressed: () {
-                API.test();
+//                API.test();
+
+                throw new Error();
               },
               color: Colors.pink[300],
               textColor: Colors.white,

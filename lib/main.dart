@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:bangumi/pages/MainPage.dart';
+import 'package:bangumi/reportError.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  try {
+    runApp(MyApp());
+  } catch (error, stackTrace) {
+    reportError(error, stackTrace);
+  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
