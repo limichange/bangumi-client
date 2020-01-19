@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PlaceholderWidget extends StatelessWidget {
-  final Color color;
-
-  PlaceholderWidget(this.color);
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Center(

@@ -1,6 +1,7 @@
+import 'package:bangumi/pages/HomePage.dart';
 import 'package:bangumi/pages/MePage.dart';
 import 'package:flutter/material.dart';
-import 'package:bangumi/pages/PlaceholderWidget.dart';
+import 'package:bangumi/pages/MyListPage.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -22,11 +23,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
-  final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.deepOrange),
-    MePage()
-  ];
+  final List<Widget> _children = [HomePage(), MyListPage(), MePage()];
 
   void onTabTapped(int index) {
     setState(() {
