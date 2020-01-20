@@ -11,14 +11,12 @@ class AnimeListItem extends StatelessWidget {
       padding: EdgeInsets.all(12.0),
       child: Row(
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: Container(
-              child: Image.network(imageURL),
-            ),
+          Container(
+            width: 120,
+            child: Image.network(imageURL),
           ),
           Flexible(
-            flex: 2,
+            flex: 1,
             child: Container(
               padding: EdgeInsets.only(left: 16),
               child: Column(
