@@ -16,7 +16,7 @@ class AnimeListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            width: 120,
+            width: 100,
             child: Image.network(anime.cover),
           ),
           Expanded(
@@ -33,7 +33,7 @@ class AnimeListItem extends StatelessWidget {
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -41,7 +41,7 @@ class AnimeListItem extends StatelessWidget {
                   Text(
                     anime.desc,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
+                    maxLines: 3,
                   ),
                   RaisedButton(
                     child: Text(
