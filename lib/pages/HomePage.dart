@@ -1,6 +1,4 @@
-import 'package:bangumi/api/API.dart';
 import 'package:bangumi/components/AnimeListItem.dart';
-import 'package:bangumi/reportError.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
