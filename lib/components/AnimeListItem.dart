@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../reportError.dart';
 
@@ -8,28 +9,30 @@ class AnimeListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.0),
+      padding: EdgeInsets.only(left: 10, top: 10, right: 10),
       child: Row(
         children: <Widget>[
           Container(
-            width: 120,
+            width: 128,
             child: Image.network(imageURL),
           ),
-          Flexible(
+          Expanded(
             flex: 1,
             child: Container(
               padding: EdgeInsets.only(left: 16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    '鬼灭之刃',
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+                  Container(
+                    child: Text(
+                      '鬼灭之刃',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   Text(
