@@ -1,12 +1,19 @@
 import 'package:bangumi/model/Anime.dart';
+import 'package:bangumi/pages/AnimeDetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../reportError.dart';
 
 class AnimeListItem extends StatelessWidget {
   Anime anime;
 
   AnimeListItem({this.anime}) {}
+
+  goDetail(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AnimeDetailPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +45,25 @@ class AnimeListItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    anime.desc,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+                  GestureDetector(
+                    child: Text(
+                      anime.desc,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                    onTap: () {
+                      print('Tapped');
+                    },
+                    onLongPress: () {
+                      print('Long Pressed');
+                    },
                   ),
                   RaisedButton(
                     child: Text(
                       '加入我的收藏',
                     ),
                     onPressed: () {
-                      try {
-                        throw new Error();
-                      } catch (error, stackTrace) {
-                        reportError(error, stackTrace);
-                      }
+                      goDetail(context);
                     },
                     color: Colors.pink[300],
                     textColor: Colors.white,

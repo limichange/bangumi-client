@@ -44,11 +44,20 @@ class HomePage extends StatelessWidget {
           // the App.build method, and use it to set our appbar title.
           title: Text("半谷米"),
         ),
-        body: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, int index) {
-            return AnimeListItem(anime: data[index]);
-          },
-        ));
+        body: Column(children: <Widget>[
+          Container(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              child: TextField(
+                decoration: InputDecoration(hintText: '搜索'),
+              )),
+          Flexible(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, int index) {
+                  return AnimeListItem(anime: data[index]);
+                },
+              ))
+        ]));
   }
 }
