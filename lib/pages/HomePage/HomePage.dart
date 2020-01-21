@@ -1,5 +1,5 @@
 import 'package:bangumi/api/API.dart';
-import 'package:bangumi/components/AnimeListItem.dart';
+import 'package:bangumi/pages/HomePage/AnimeListItem.dart';
 import 'package:bangumi/model/Anime.dart';
 import 'package:flutter/material.dart';
 
@@ -33,23 +33,26 @@ class _HomePage extends State<HomePage> {
                 decoration: InputDecoration(hintText: '搜索'),
               )),
           Flexible(
-              flex: 1,
-              child: FutureBuilder<List<Anime>>(
-                  future: data,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, int index) {
-                          return AnimeListItem(anime: snapshot.data[index]);
-                        },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('error');
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  }))
+            flex: 1,
+            child: RefreshIndicator(
+                onRefresh: () {},
+                child: FutureBuilder<List<Anime>>(
+                    future: data,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, int index) {
+                            return AnimeListItem(anime: snapshot.data[index]);
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('error');
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    })),
+          )
         ]));
   }
 }

@@ -15,4 +15,10 @@ class API {
 
     return list;
   }
+
+  static Future<Anime> getAnimeByUUID(String uuid) async {
+    final response = await Request.get('/anime/uuid/${uuid}');
+
+    return Anime.fromJson(json.decode(response.body));
+  }
 }
