@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AnimeDetailPage extends StatelessWidget {
+  String uuid = "";
+
+  AnimeDetailPage({this.uuid});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +14,9 @@ class AnimeDetailPage extends StatelessWidget {
           title: Text("半谷米"),
         ),
         body: Column(children: <Widget>[
-          Container(),
+          Container(
+            child: Text(uuid),
+          ),
           Container(),
         ]));
   }

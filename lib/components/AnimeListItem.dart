@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 class AnimeListItem extends StatelessWidget {
   Anime anime;
 
-  AnimeListItem({this.anime}) {}
+  AnimeListItem({this.anime});
 
   goDetail(context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AnimeDetailPage()),
+      MaterialPageRoute(
+          builder: (context) => AnimeDetailPage(uuid: anime.uuid)),
     );
   }
 
