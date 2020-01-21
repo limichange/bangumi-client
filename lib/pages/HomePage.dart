@@ -44,6 +44,8 @@ class _HomePage extends State<HomePage> {
                           return AnimeListItem(anime: snapshot.data[index]);
                         },
                       );
+                    } else if (snapshot.hasError) {
+                      return Text('error');
                     } else {
                       return CircularProgressIndicator();
                     }
