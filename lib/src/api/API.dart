@@ -12,7 +12,8 @@ class API {
 
   Future<User> login(String username, String password) async {
     print(username + password);
-    await dio.post('/user/login');
+    await dio
+        .post('/user/login', data: {username: username, password: password});
   }
 
   Future<List<Anime>> getAnimeHome() async {
