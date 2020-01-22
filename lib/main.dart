@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bangumi/pages/MainPage.dart';
-import 'package:bangumi/reportError.dart';
+import 'package:bangumi/src/pages/MainPage.dart';
+import 'package:bangumi/src/reportError.dart';
 
 void main() async {
   try {

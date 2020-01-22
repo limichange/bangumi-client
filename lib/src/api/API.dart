@@ -1,5 +1,5 @@
-import 'package:bangumi/model/Anime.dart';
-import 'package:bangumi/model/User.dart';
+import 'package:bangumi/src/model/Anime.dart';
+import 'package:bangumi/src/model/User.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 

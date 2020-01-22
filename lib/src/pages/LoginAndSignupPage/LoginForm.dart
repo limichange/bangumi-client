@@ -1,4 +1,4 @@
-import 'package:bangumi/api/API.dart';
+import 'package:bangumi/src/api/API.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {

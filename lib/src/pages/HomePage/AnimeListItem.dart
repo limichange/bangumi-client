@@ -1,5 +1,5 @@
-import 'package:bangumi/model/Anime.dart';
-import 'package:bangumi/pages/AnimeDetailPage.dart';
+import 'package:bangumi/src/model/Anime.dart';
+import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

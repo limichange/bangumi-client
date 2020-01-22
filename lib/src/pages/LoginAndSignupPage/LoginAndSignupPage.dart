@@ -1,5 +1,5 @@
-import 'package:bangumi/pages/LoginAndSignupPage/LoginForm.dart';
-import 'package:bangumi/pages/LoginAndSignupPage/SignupForm.dart';
+import 'package:bangumi/src/pages/LoginAndSignupPage/LoginForm.dart';
+import 'package:bangumi/src/pages/LoginAndSignupPage/SignupForm.dart';
 import 'package:flutter/material.dart';
 
 class LoginAndSignupPage extends StatelessWidget {

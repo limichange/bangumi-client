@@ -1,6 +1,6 @@
-import 'package:bangumi/api/API.dart';
-import 'package:bangumi/pages/HomePage/AnimeListItem.dart';
-import 'package:bangumi/model/Anime.dart';
+import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/pages/HomePage/AnimeListItem.dart';
+import 'package:bangumi/src/model/Anime.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

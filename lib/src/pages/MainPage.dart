@@ -1,7 +1,7 @@
-import 'package:bangumi/pages/HomePage/HomePage.dart';
-import 'package:bangumi/pages/MePage.dart';
+import 'package:bangumi/src/pages/HomePage/HomePage.dart';
+import 'package:bangumi/src/pages/MePage.dart';
 import 'package:flutter/material.dart';
-import 'package:bangumi/pages/MyListPage/MyListPage.dart';
+import 'package:bangumi/src/pages/MyListPage/MyListPage.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
