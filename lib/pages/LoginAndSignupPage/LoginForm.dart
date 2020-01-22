@@ -1,3 +1,4 @@
+import 'package:bangumi/api/API.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -19,6 +20,7 @@ class _LoginForm extends State<LoginForm> {
       form.save();
 
       print(_password + _username);
+      new API().login(_username, _password);
     }
   }
 

@@ -11,6 +11,7 @@ class API {
   ));
 
   Future<User> login(String username, String password) async {
+    print(username + password);
     await dio.post('/user/login');
   }
 
