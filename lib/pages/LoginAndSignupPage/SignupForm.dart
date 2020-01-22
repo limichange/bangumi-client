@@ -13,6 +13,9 @@ class SignupForm extends StatelessWidget {
                   InputDecoration(labelText: "用户名", hintText: "使用邮箱或者手机号"),
             ),
             TextFormField(
+              decoration: InputDecoration(labelText: "昵称", hintText: "你的昵称"),
+            ),
+            TextFormField(
               obscureText: true,
               decoration: InputDecoration(labelText: "密码", hintText: "请输入密码"),
             ),

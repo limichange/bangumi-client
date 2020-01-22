@@ -15,7 +15,7 @@ class _HomePage extends State<HomePage> {
   void initState() {
     super.initState();
 
-    data = API.getAnimeHome();
+    data = new API().getAnimeHome();
   }
 
   @override

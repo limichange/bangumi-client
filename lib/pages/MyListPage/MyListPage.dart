@@ -15,7 +15,7 @@ class _MyListPage extends State<MyListPage> {
   void initState() {
     super.initState();
 
-    data = API.getAnimeHome();
+    data = new API().getAnimeHome();
   }
 
   @override
