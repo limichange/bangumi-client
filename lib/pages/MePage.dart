@@ -10,7 +10,7 @@ class MePage extends StatefulWidget {
 }
 
 class _MePage extends State<MePage> {
-  String key;
+  String key = '';
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _MePage extends State<MePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      prefs.setString('key', 'value');
+//      prefs.setString('key', 'value');
       key = prefs.getString('key');
     });
   }
