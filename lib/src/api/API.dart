@@ -2,6 +2,7 @@ import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/model/User.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
   Dio dio = new Dio(new BaseOptions(
@@ -10,16 +11,38 @@ class API {
     receiveTimeout: 3000,
   ));
 
-  Future login(String username, String password) async {
-    print(username + password);
+  API() {
+    autoToken();
+  }
 
+  autoToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token');
+
+    if (token.length > 0) {
+      dio.options.headers["token"] = token;
+    }
+  }
+
+  Future login(String username, String password) async {
     try {
       Response response = await dio.post('/user/login',
           data: {'username': username, 'password': password});
 
       return response.data;
     } catch (e) {
-      print(e);
+      return {'status': 400, 'message': '服务器有点忙'};
+    }
+  }
+
+  Future userInfo() async {
+    try {
+      Response response = await dio.get('/user/info');
+
+      print(response);
+    } catch (e) {
+      return {'status': 400, 'message': '服务器有点忙'};
     }
   }
 

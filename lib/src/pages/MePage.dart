@@ -1,3 +1,4 @@
+import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,10 +22,14 @@ class _MePage extends State<MePage> {
 
   loadKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+
+    if (token.length > 0) {
+      new API().userInfo();
+    }
 
     setState(() {
-//      prefs.setString('key', 'value');
-      key = prefs.getString('token');
+      key = token;
     });
   }
 
