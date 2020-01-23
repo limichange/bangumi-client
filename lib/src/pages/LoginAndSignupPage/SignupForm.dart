@@ -44,16 +44,36 @@ class SignupForm extends StatelessWidget {
               ),
               TextFormField(
                 onSaved: (value) => _password = value,
-                validator: (value) =>
-                    value.length == 0 ? '不能空着 _(:з」∠)_' : null,
+                onChanged: (value) => _password = value,
+                validator: (value) {
+                  if (value.length == 0) {
+                    return '不能空着 _(:з」∠)_';
+                  }
+
+                  if (value.length < 6) {
+                    return '你的密码太短了';
+                  }
+
+                  return null;
+                },
                 obscureText: true,
                 decoration: InputDecoration(labelText: "密码", hintText: "请输入密码"),
               ),
               TextFormField(
                 obscureText: true,
                 onSaved: (value) => _passwordAgain = value,
-                validator: (value) =>
-                    value.length == 0 ? '不能空着 _(:з」∠)_' : null,
+                onChanged: (value) => _passwordAgain = value,
+                validator: (value) {
+                  if (value.length == 0) {
+                    return '不能空着 _(:з」∠)_';
+                  }
+
+                  if (_passwordAgain != _password) {
+                    return '两次的密码不一样';
+                  }
+
+                  return null;
+                },
                 decoration:
                     InputDecoration(labelText: "确认密码", hintText: "请再次输入密码"),
               ),
