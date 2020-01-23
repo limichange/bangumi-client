@@ -10,14 +10,14 @@ class API {
     receiveTimeout: 3000,
   ));
 
-  Future<User> login(String username, String password) async {
+  Future login(String username, String password) async {
     print(username + password);
 
     try {
       Response response = await dio.post('/user/login',
           data: {'username': username, 'password': password});
 
-      print(response);
+      return response.data;
     } catch (e) {
       print(e);
     }

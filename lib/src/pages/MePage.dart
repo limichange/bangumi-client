@@ -24,7 +24,7 @@ class _MePage extends State<MePage> {
 
     setState(() {
 //      prefs.setString('key', 'value');
-      key = prefs.getString('key');
+      key = prefs.getString('token');
     });
   }
 

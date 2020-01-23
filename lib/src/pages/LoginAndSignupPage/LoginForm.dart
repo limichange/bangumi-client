@@ -1,5 +1,6 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -14,13 +15,18 @@ class _LoginForm extends State<LoginForm> {
   String _password;
   String _username;
 
-  void _submit() {
+  void _submit() async {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
 
-      print(_password + _username);
-      new API().login(_username, _password);
+      var res = await new API().login(_username, _password);
+
+      if (res['status'] == 200) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        prefs.setString('token', res['data']['token']);
+      }
     }
   }
 
