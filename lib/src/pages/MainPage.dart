@@ -1,5 +1,5 @@
 import 'package:bangumi/src/pages/HomePage/HomePage.dart';
-import 'package:bangumi/src/pages/MePage.dart';
+import 'package:bangumi/src/pages/MePage/MePage.dart';
 import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MyListPage/MyListPage.dart';
 
