@@ -12,8 +12,32 @@ class API {
 
   Future<User> login(String username, String password) async {
     print(username + password);
-    await dio
-        .post('/user/login', data: {username: username, password: password});
+
+    try {
+      Response response = await dio.post('/user/login',
+          data: {'username': username, 'password': password});
+
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<User> singup(
+      {String username, String password, String nickname}) async {
+    print(username + password);
+
+    try {
+      Response response = await dio.post('/user/signup', data: {
+        'username': username,
+        'nickname': nickname,
+        'password': password
+      });
+
+      print(response);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<List<Anime>> getAnimeHome() async {
