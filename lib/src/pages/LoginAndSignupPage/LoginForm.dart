@@ -1,5 +1,8 @@
+import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
@@ -14,6 +17,8 @@ class _LoginForm extends State<LoginForm> {
 
   String _password;
   String _username;
+  var _context;
+  var globalData;
 
   void _submit() async {
     final form = formKey.currentState;
@@ -26,12 +31,22 @@ class _LoginForm extends State<LoginForm> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         prefs.setString('token', res['data']['token']);
+
+        globalData.updateToken(res['data']['token']);
+
+        Utils.showToast(context: _context, text: '欢迎━(*｀∀´*)ノ亻!');
+      } else {
+        Utils.showToast(context: _context, text: res['message']);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
+    globalData = Provider.of<GlobalData>(_context);
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16.0),

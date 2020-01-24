@@ -1,7 +1,9 @@
+import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MePage extends StatefulWidget {
@@ -38,9 +40,13 @@ class _MePage extends State<MePage> {
 
   @override
   Widget build(BuildContext context) {
+    var globalData = Provider.of<GlobalData>(context);
+
+    print(globalData.token);
+
     var body = Column(
       children: <Widget>[
-        Text(key),
+        Text(globalData.token),
         Container(
           child: LogoutButton(),
         ),

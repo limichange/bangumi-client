@@ -1,26 +1,26 @@
+import 'package:bangumi/src/GlobalData.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class LogoutButton extends StatelessWidget {
   var onLoutout;
   var _context;
+  var globalData;
 
   signout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('token');
+    (await Utils.getStore()).remove('token');
 
-    Scaffold.of(_context).showSnackBar(SnackBar(
-      content: Text("ヾ(￣▽￣)Bye~Bye~"),
-    ));
+    Utils.showToast(context: _context, text: "ヾ(￣▽￣)Bye~Bye~");
 
-//    if (onLoutout == null) {
-//      onLoutout();
-//    }
+    globalData.updateToken('');
   }
 
   @override
   Widget build(BuildContext context) {
     _context = context;
+    globalData = Provider.of<GlobalData>(_context);
+
     return RaisedButton(
       onPressed: () {
         signout();
