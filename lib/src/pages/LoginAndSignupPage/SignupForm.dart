@@ -26,9 +26,9 @@ class SignupForm extends StatelessWidget {
       print(res['status']);
 
       if (res['status'] == 200) {
-//        SharedPreferences store = await Utils.getStore();
-
-//        Utils.showToast(context: _context, text: '━(*｀∀´*)ノ亻!');
+        Utils.showToast(context: _context, text: '注册成功 ━(*｀∀´*)ノ亻!');
+        onSignupOk();
+        form.reset();
       } else {
         Utils.showToast(context: _context, text: res['message']);
       }

@@ -56,7 +56,7 @@ class API {
         'password': password
       });
 
-      return response;
+      return response.data;
     } catch (e) {
       return badMessage;
     }
