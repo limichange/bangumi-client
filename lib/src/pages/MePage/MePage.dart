@@ -42,31 +42,33 @@ class _MePage extends State<MePage> {
   Widget build(BuildContext context) {
     var globalData = Provider.of<GlobalData>(context);
 
-    print(globalData.token);
+    var noTokenWidget = Container(
+      padding: EdgeInsets.all(30.0),
+      alignment: Alignment.center,
+      child: RaisedButton(
+        child: Text(
+          '登录/注册',
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginAndSignupPage()),
+          );
+        },
+        color: Colors.pink[300],
+        textColor: Colors.white,
+      ),
+    );
+
+    var hasTokenWidget = Container(
+      alignment: Alignment.center,
+      child: LogoutButton(),
+    );
 
     var body = Column(
       children: <Widget>[
         Text(globalData.token),
-        Container(
-          child: LogoutButton(),
-        ),
-        (Container(
-          padding: EdgeInsets.all(30.0),
-          alignment: Alignment.center,
-          child: RaisedButton(
-            child: Text(
-              '登录/注册',
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginAndSignupPage()),
-              );
-            },
-            color: Colors.pink[300],
-            textColor: Colors.white,
-          ),
-        ))
+        globalData.token == '' ? noTokenWidget : hasTokenWidget
       ],
     );
 

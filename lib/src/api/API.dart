@@ -11,6 +11,8 @@ class API {
     receiveTimeout: 3000,
   ));
 
+  var badMessage = {'status': 400, 'message': '服务器有点忙'};
+
   API() {
     autoToken();
   }
@@ -32,7 +34,7 @@ class API {
 
       return response.data;
     } catch (e) {
-      return {'status': 400, 'message': '服务器有点忙'};
+      return badMessage;
     }
   }
 
@@ -42,14 +44,11 @@ class API {
 
       print(response);
     } catch (e) {
-      return {'status': 400, 'message': '服务器有点忙'};
+      return badMessage;
     }
   }
 
-  Future<User> singup(
-      {String username, String password, String nickname}) async {
-    print(username + password);
-
+  Future singup({String username, String password, String nickname}) async {
     try {
       Response response = await dio.post('/user/signup', data: {
         'username': username,
@@ -57,9 +56,9 @@ class API {
         'password': password
       });
 
-      print(response);
+      return response;
     } catch (e) {
-      print(e);
+      return badMessage;
     }
   }
 

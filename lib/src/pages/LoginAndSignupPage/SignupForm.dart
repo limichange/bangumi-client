@@ -1,27 +1,44 @@
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupForm extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
+  var _context;
+  VoidCallback onSignupOk;
   String _username;
   String _password;
   String _passwordAgain;
   String _nickname;
 
-  void _submit() {
+  SignupForm({@required this.onSignupOk});
+
+  void _submit() async {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
 
-      print(_password + _username);
-      new API().singup(
+      var res = await new API().singup(
           username: _username, password: _password, nickname: _nickname);
+
+      print(res['status']);
+
+      if (res['status'] == 200) {
+//        SharedPreferences store = await Utils.getStore();
+
+//        Utils.showToast(context: _context, text: '━(*｀∀´*)ノ亻!');
+      } else {
+        Utils.showToast(context: _context, text: res['message']);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16.0),

@@ -12,8 +12,10 @@ class GlobalData extends ChangeNotifier {
 
   init() async {
     var store = await Utils.getStore();
-
-    updateToken(store.getString('token'));
+    var token = store.getString('token');
+    if (token != null) {
+      updateToken(token);
+    }
   }
 
   void updateToken(token) {
