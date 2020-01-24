@@ -96,6 +96,8 @@ class SignupForm extends StatelessWidget {
               ),
               RaisedButton(
                 child: Text('注册'),
+                color: Colors.pink[300],
+                textColor: Colors.white,
                 onPressed: _submit,
               )
             ]),

@@ -67,7 +67,8 @@ class _MePage extends State<MePage> {
 
     var body = Column(
       children: <Widget>[
-        Text(globalData.nickname),
+        Container(
+            padding: EdgeInsets.all(30), child: Text(globalData.nickname)),
         globalData.token == '' ? noTokenWidget : hasTokenWidget
       ],
     );

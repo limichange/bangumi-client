@@ -74,6 +74,8 @@ class _LoginForm extends State<LoginForm> {
                         InputDecoration(labelText: "密码", hintText: "请输入密码"),
                   ),
                   RaisedButton(
+                    color: Colors.pink[300],
+                    textColor: Colors.white,
                     child: Text('登录'),
                     onPressed: _submit,
                   )
