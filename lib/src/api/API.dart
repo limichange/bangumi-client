@@ -20,7 +20,7 @@ class API {
 
     String token = prefs.getString('token');
 
-    if (token.length > 0) {
+    if (token != null) {
       dio.options.headers["token"] = token;
     }
   }

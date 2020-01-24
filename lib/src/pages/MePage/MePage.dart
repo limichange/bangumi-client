@@ -25,13 +25,15 @@ class _MePage extends State<MePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
 
-    if (token.length > 0) {
+    if (token != null) {
       new API().userInfo();
-    }
 
-    setState(() {
-      key = token;
-    });
+      setState(() {
+        key = token;
+      });
+    } else {
+      // todo
+    }
   }
 
   @override
