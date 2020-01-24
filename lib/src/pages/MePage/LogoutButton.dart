@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutButton extends StatelessWidget {
-  signout() async {
+  signout(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
+
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text("ヾ(￣▽￣)Bye~Bye~"),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return RaisedButton(
-      onPressed: () {},
-      child: Text('注销'),
+      onPressed: () {
+        signout(context);
+      },
+      child: Text('退出账号'),
     );
   }
 }
