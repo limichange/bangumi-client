@@ -17,14 +17,24 @@ class API {
     autoToken();
   }
 
-  autoToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  autoToken() {
+    dio.interceptors
+        .add(InterceptorsWrapper(onRequest: (Options options) async {
+      // If no token, request token firstly and lock this interceptor
+      // to prevent other request enter this interceptor.
+      dio.interceptors.requestLock.lock();
+      // We use a new Dio(to avoid dead lock) instance to request token.
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString('token');
 
-    String token = prefs.getString('token');
+      if (token != '') {
+        options.headers["token"] = token;
+      }
+      //Set the token to headers
 
-    if (token != null) {
-      dio.options.headers["token"] = token;
-    }
+      dio.interceptors.requestLock.unlock();
+      return options; //continue
+    }));
   }
 
   Future login(String username, String password) async {
@@ -42,7 +52,7 @@ class API {
     try {
       Response response = await dio.get('/user/info');
 
-      print(response);
+      return response.data;
     } catch (e) {
       return badMessage;
     }

@@ -9,11 +9,9 @@ class LogoutButton extends StatelessWidget {
   var globalData;
 
   signout() async {
-    (await Utils.getStore()).remove('token');
-
     Utils.showToast(context: _context, text: "ヾ(￣▽￣)Bye~Bye~");
 
-    globalData.updateToken('');
+    globalData.logout();
   }
 
   @override

@@ -28,13 +28,14 @@ class _LoginForm extends State<LoginForm> {
       var res = await new API().login(_username, _password);
 
       if (res['status'] == 200) {
+        Utils.showToast(context: _context, text: '欢迎━(*｀∀´*)ノ亻!');
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         prefs.setString('token', res['data']['token']);
 
         globalData.updateToken(res['data']['token']);
-
-        Utils.showToast(context: _context, text: '欢迎━(*｀∀´*)ノ亻!');
+        globalData.getUserInfo();
 
         Navigator.pop(context);
       } else {
