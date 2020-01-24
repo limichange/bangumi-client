@@ -35,6 +35,8 @@ class _LoginForm extends State<LoginForm> {
         globalData.updateToken(res['data']['token']);
 
         Utils.showToast(context: _context, text: '欢迎━(*｀∀´*)ノ亻!');
+
+        Navigator.pop(context);
       } else {
         Utils.showToast(context: _context, text: res['message']);
       }
