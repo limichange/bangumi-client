@@ -24,9 +24,12 @@ class AnimeListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: 100,
-            child: Image.network(anime.cover),
+          GestureDetector(
+            onTap: () => goDetail(context),
+            child: Container(
+              width: 100,
+              child: Image.network(anime.cover),
+            ),
           ),
           Expanded(
             flex: 1,
@@ -35,30 +38,28 @@ class AnimeListItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Text(
-                      anime.name,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                  GestureDetector(
+                    onTap: () => goDetail(context),
+                    child: Container(
+                      child: Text(
+                        anime.name,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                   GestureDetector(
+                    onTap: () => goDetail(context),
                     child: Text(
                       anime.desc,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
                     ),
-                    onTap: () {
-                      print('Tapped');
-                    },
-                    onLongPress: () {
-                      print('Long Pressed');
-                    },
                   ),
                   StatusSelectButton()
                 ],
