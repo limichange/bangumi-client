@@ -5,9 +5,11 @@ import 'package:flutter/foundation.dart';
 class GlobalData extends ChangeNotifier {
   String _token = '';
   String _nickname = '';
+  bool _isLogin = false;
 
   String get token => _token;
   String get nickname => _nickname;
+  bool get isLogin => _isLogin;
 
   GlobalData() {
     init();
@@ -35,6 +37,7 @@ class GlobalData extends ChangeNotifier {
   logout() async {
     _nickname = '';
     _token = '';
+    _isLogin = false;
     (await Utils.getStore()).remove('token');
 
     notifyListeners();
@@ -43,6 +46,9 @@ class GlobalData extends ChangeNotifier {
   void updateToken(token) async {
     _token = token;
 
+    if (_token != '') {
+      _isLogin = true;
+    }
     notifyListeners();
   }
 }
