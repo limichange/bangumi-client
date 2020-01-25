@@ -1,3 +1,4 @@
+import 'package:bangumi/src/components/StatusSelectButton.dart';
 import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,16 +60,7 @@ class AnimeListItem extends StatelessWidget {
                       print('Long Pressed');
                     },
                   ),
-                  RaisedButton(
-                    child: Text(
-                      '加入我的收藏',
-                    ),
-                    onPressed: () {
-                      goDetail(context);
-                    },
-                    color: Colors.pink[300],
-                    textColor: Colors.white,
-                  ),
+                  StatusSelectButton()
                 ],
               ),
             ),

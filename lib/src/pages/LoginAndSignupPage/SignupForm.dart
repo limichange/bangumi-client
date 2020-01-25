@@ -1,7 +1,6 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupForm extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
