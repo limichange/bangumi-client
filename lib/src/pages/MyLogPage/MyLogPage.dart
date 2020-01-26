@@ -3,6 +3,8 @@ import 'package:bangumi/src/pages/MyLogPage/LogList.dart';
 import 'package:flutter/material.dart';
 
 class MyLogPage extends StatefulWidget {
+  const MyLogPage({Key key}) : super(key: key);
+
   @override
   _MyLogPage createState() => _MyLogPage();
 }
@@ -28,6 +30,7 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          key: GlobalKey(),
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text("我的收藏"),

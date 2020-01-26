@@ -4,9 +4,9 @@ import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class LogList extends StatefulWidget {
-  String status;
+  LogList({Key key, this.status}) : super(key: key);
 
-  LogList({this.status});
+  String status;
 
   @override
   _LogList createState() {

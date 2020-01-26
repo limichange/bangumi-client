@@ -23,7 +23,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
-  final List<Widget> _children = [HomePage(), MyLogPage(), MePage()];
+  final homePage = new HomePage(key: PageStorageKey('Page1'));
+  final myLogPage = new MyLogPage(key: PageStorageKey('Page2'));
+  final mePage = new MePage(key: PageStorageKey('Page3'));
 
   void onTabTapped(int index) {
     setState(() {
@@ -31,10 +33,24 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+//  final PageStorageBucket bucket = PageStorageBucket();
+//
+//  getPage(index) {
+//    if (index == 0) {
+//      return homePage;
+//    } else if (index == 1) {
+//      return myLogPage;
+//    } else if (index == 2) {
+//      return mePage;
+//    }
+//  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      body: IndexedStack(
+          children: <Widget>[homePage, myLogPage, mePage],
+          index: _currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,

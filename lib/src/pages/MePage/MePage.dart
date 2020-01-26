@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MePage extends StatefulWidget {
+  const MePage({Key key}) : super(key: key);
+
   @override
   _MePage createState() {
     return _MePage();
