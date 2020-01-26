@@ -61,7 +61,7 @@ class AnimeListItem extends StatelessWidget {
                       maxLines: 3,
                     ),
                   ),
-                  StatusSelectButton()
+                  StatusSelectButton(uuid: anime.uuid)
                 ],
               ),
             ),

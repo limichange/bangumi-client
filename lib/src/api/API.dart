@@ -72,20 +72,36 @@ class API {
     }
   }
 
-  Future<List<Anime>> getAnimeHome() async {
-    List<Anime> list = new List<Anime>();
+  Future updateAnimeLog(String uuid, String status) async {
+    try {
+      Response response = await dio
+          .post('/animeLog/update', data: {'uuid': uuid, 'status': status});
 
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
+  }
+
+  Future getAnimeHome() async {
     try {
       Response response = await dio.get('/anime/home');
 
-      response.data.forEach((e) {
-        list.add(Anime.fromJson(e));
-      });
+      return response.data;
     } catch (e) {
-      print(e);
+      return badMessage;
     }
+  }
 
-    return list;
+  Future myAnimeLog(String status) async {
+    try {
+      Response response =
+          await dio.get('/animeLog/myLog', queryParameters: {'status': status});
+
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
   }
 
   Future<Anime> getAnimeByUUID(String uuid) async {

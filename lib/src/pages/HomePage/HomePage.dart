@@ -1,6 +1,7 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/pages/HomePage/AnimeListItem.dart';
 import 'package:bangumi/src/model/Anime.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,13 +10,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  Future<List<Anime>> data;
+  List<Anime> _list = new List<Anime>();
 
   @override
   void initState() {
     super.initState();
+    loadData();
+  }
 
-    data = new API().getAnimeHome();
+  Future loadData() async {
+    var res = await new API().getAnimeHome();
+    List<Anime> list = new List<Anime>();
+
+    if (res['status'] == 200) {
+      res['data']['data'].forEach((e) {
+        list.add(Anime.fromJson(e));
+      });
+    } else {
+      Utils.showToast(context: context, text: res['message']);
+    }
+
+    setState(() {
+      _list = list;
+    });
+  }
+
+  Future reload() async {
+    setState(() {
+      _list = [];
+    });
+    await loadData();
   }
 
   @override
@@ -35,23 +59,14 @@ class _HomePage extends State<HomePage> {
           Flexible(
             flex: 1,
             child: RefreshIndicator(
-                onRefresh: () {},
-                child: FutureBuilder<List<Anime>>(
-                    future: data,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, int index) {
-                            return AnimeListItem(anime: snapshot.data[index]);
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('error');
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    })),
+              onRefresh: reload,
+              child: ListView.builder(
+                itemCount: _list.length,
+                itemBuilder: (context, int index) {
+                  return AnimeListItem(anime: _list[index]);
+                },
+              ),
+            ),
           )
         ]));
   }
