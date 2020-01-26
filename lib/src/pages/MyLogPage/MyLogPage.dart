@@ -53,30 +53,6 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
             LogList(status: 'todo'),
             LogList(status: 'done'),
           ],
-        )
-
-//        Column(children: <Widget>[
-//          Flexible(
-//            flex: 1,
-//            child: RefreshIndicator(
-//                onRefresh: () {},
-//                child: FutureBuilder<List<Anime>>(
-//                    future: data,
-//                    builder: (context, snapshot) {
-//                      if (snapshot.hasData) {
-//                        return ListView.builder(
-//                          itemCount: snapshot.data.length,
-//                          itemBuilder: (context, int index) {
-//                            return AnimeListItem(anime: snapshot.data[index]);
-//                          },
-//                        );
-//                      } else if (snapshot.hasError) {
-//                        return Text('error');
-//                      } else {
-//                        return CircularProgressIndicator();
-//                      }
-//                    })),
-//          )
-        );
+        ));
   }
 }
