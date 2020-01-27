@@ -126,6 +126,17 @@ class API {
     }
   }
 
+  Future AnimeDetail(String uuid) async {
+    try {
+      Response response =
+          await dio.get('/anime/detail', queryParameters: {'uuid': uuid});
+
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
+  }
+
   Future<Anime> getAnimeByUUID(String uuid) async {
     Response response = await dio.get('/anime/uuid/${uuid}');
 
