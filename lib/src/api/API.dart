@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
   Dio dio = new Dio(new BaseOptions(
-    baseUrl: "http://127.0.0.1:8080",
+    baseUrl: "http://192.168.1.120:8080",
     connectTimeout: 5000,
     receiveTimeout: 3000,
   ));
@@ -135,13 +135,5 @@ class API {
     } catch (e) {
       return badMessage;
     }
-  }
-
-  Future<Anime> getAnimeByUUID(String uuid) async {
-    Response response = await dio.get('/anime/uuid/${uuid}');
-
-    print(response);
-
-    return Anime.fromJson(json.decode(response.toString()));
   }
 }
