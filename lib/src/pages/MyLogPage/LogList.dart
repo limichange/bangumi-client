@@ -17,6 +17,7 @@ class LogList extends StatefulWidget {
 class _LogList extends State<LogList> {
   var data;
   List _list = [];
+  num total;
 
   @override
   initState() {
@@ -29,19 +30,21 @@ class _LogList extends State<LogList> {
     var res = await new API().myAnimeLog(widget.status);
     List list = new List();
 
+    //    pages: { total: 21, perPage: 20, page: 1, lastPage: 2 },
     print(res);
 
     if (res['status'] == 200) {
       res['data']['rows'].forEach((e) {
         list.add(Anime.fromJson(e));
       });
+
+      setState(() {
+        total = res['data']['pages']['total'];
+        _list = list;
+      });
     } else {
       Utils.showToast(context: context, text: res['message']);
     }
-
-    setState(() {
-      _list = list;
-    });
   }
 
   Future reload() async {
@@ -75,6 +78,7 @@ class _LogList extends State<LogList> {
       }).toList();
 
   Widget _buildGrid() => GridView.count(
+      padding: EdgeInsets.only(top: 10, bottom: 10),
       crossAxisCount: 3,
       childAspectRatio: 0.7,
       shrinkWrap: true,
@@ -82,12 +86,40 @@ class _LogList extends State<LogList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: RefreshIndicator(
-            onRefresh: reload,
-            child: Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: _buildGrid(),
-            )));
+    return Stack(
+      children: <Widget>[
+        Container(
+            child: RefreshIndicator(
+                onRefresh: reload,
+                child: Container(
+                  child: _buildGrid(),
+                ))),
+        new Positioned(
+            left: 10.0,
+            bottom: 10.0,
+            child: new Container(
+              width: 60.0,
+              decoration: new BoxDecoration(
+                color: Colors.pink[300],
+                borderRadius: new BorderRadius.all(new Radius.circular(4.0)),
+                boxShadow: [
+                  new BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 12.0,
+                      spreadRadius: 1.0)
+                ],
+              ),
+              child: new Text(
+                total.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            )),
+      ],
+    );
   }
 }
