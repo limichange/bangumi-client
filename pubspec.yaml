@@ -29,6 +29,7 @@ dependencies:
   dio:
   rxdart:
   provider:
+  transparent_image:
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class AnimeListItem extends StatelessWidget {
   Anime anime;
@@ -28,7 +29,9 @@ class AnimeListItem extends StatelessWidget {
             onTap: () => goDetail(context),
             child: Container(
               width: 100,
-              child: Image.network(anime.cover),
+              height: 136,
+              child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage, image: anime.cover),
             ),
           ),
           Expanded(

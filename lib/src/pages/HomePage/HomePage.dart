@@ -44,6 +44,23 @@ class _HomePage extends State<HomePage> {
     await loadData();
   }
 
+  search(string) async {
+    print(string);
+    List<Anime> list = new List<Anime>();
+
+    var res = await new API().searchAnime(string, 1);
+
+    print(res['data']['rows']);
+
+    res['data']['rows'].forEach((e) {
+      list.add(Anime.fromJson(e));
+    });
+
+    setState(() {
+      _list = list;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +73,7 @@ class _HomePage extends State<HomePage> {
           Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
               child: TextField(
+                onSubmitted: search,
                 decoration: InputDecoration(hintText: '搜索'),
               )),
           Flexible(

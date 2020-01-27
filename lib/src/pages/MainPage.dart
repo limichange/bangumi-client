@@ -33,18 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-//  final PageStorageBucket bucket = PageStorageBucket();
-//
-//  getPage(index) {
-//    if (index == 0) {
-//      return homePage;
-//    } else if (index == 1) {
-//      return myLogPage;
-//    } else if (index == 2) {
-//      return mePage;
-//    }
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
