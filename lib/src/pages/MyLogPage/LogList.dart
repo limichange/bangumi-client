@@ -1,5 +1,6 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/model/Anime.dart';
+import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
@@ -54,14 +55,26 @@ class _LogList extends State<LogList> {
     await loadData();
   }
 
+  onTap(Anime info) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AnimeDetailPage(uuid: info.uuid)),
+    );
+  }
+
   List<Container> _buildGridTileList() => _list.map((i) {
         return Container(
             height: 300,
             width: 160,
             child: Center(
               child: Column(children: <Widget>[
-                Container(
-                    width: 120, height: 160, child: Image.network(i.cover)),
+                GestureDetector(
+                  onTap: () {
+                    onTap(i);
+                  },
+                  child: Container(
+                      width: 120, height: 160, child: Image.network(i.cover)),
+                ),
                 Container(
                     width: 120,
                     padding: EdgeInsets.only(top: 4),
