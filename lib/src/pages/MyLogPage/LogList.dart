@@ -57,8 +57,10 @@ class _LogList extends State<LogList> {
             width: 160,
             child: Center(
               child: Column(children: <Widget>[
-                Container(width: 120, child: Image.network(i.cover)),
                 Container(
+                    width: 120, height: 160, child: Image.network(i.cover)),
+                Container(
+                    width: 120,
                     padding: EdgeInsets.only(top: 4),
                     child: Text(i.name,
                         overflow: TextOverflow.ellipsis,
