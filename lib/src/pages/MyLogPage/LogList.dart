@@ -63,50 +63,56 @@ class _LogList extends State<LogList> {
   }
 
   List<Container> _buildGridTileList() => _list.map((i) {
-        return Container(
-            height: 300,
-            width: 160,
-            child: Center(
-              child: Column(children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    onTap(i);
-                  },
-                  child: Container(
-                      width: 120, height: 160, child: Image.network(i.cover)),
-                ),
-                Container(
-                    width: 120,
-                    padding: EdgeInsets.only(top: 4),
-                    child: Text(i.name,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        )))
-              ]),
-            ));
-      }).toList();
+        var width = MediaQuery.of(context).size.width * 0.3;
 
-  Widget _buildGrid() => GridView.count(
-      padding: EdgeInsets.only(top: 10, bottom: 10),
-      crossAxisCount: 3,
-      childAspectRatio: 0.7,
-      shrinkWrap: true,
-      children: _buildGridTileList());
+        return Container(
+          width: width,
+          padding: EdgeInsets.only(top: 10),
+          child: Column(children: <Widget>[
+            Container(
+                child: Image.network(
+              i.cover,
+              fit: BoxFit.cover,
+              height: width * 1.2,
+              width: width,
+            )),
+            Container(
+                width: width,
+                padding: EdgeInsets.only(top: 4),
+                child: Text(i.name,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    )))
+          ]),
+        );
+      }).toList();
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+
     return Stack(
       children: <Widget>[
         Container(
-            child: RefreshIndicator(
-                onRefresh: reload,
+          child: RefreshIndicator(
+            onRefresh: reload,
+            child: Container(
+              child: SingleChildScrollView(
                 child: Container(
-                  child: _buildGrid(),
-                ))),
+                  width: width,
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceAround, //沿主轴方向居中
+                    children: _buildGridTileList(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         new Positioned(
             left: 10.0,
             bottom: 10.0,
