@@ -67,13 +67,15 @@ class _LogList extends State<LogList> {
 
         return Container(
           width: width,
+          margin:
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
           padding: EdgeInsets.only(top: 10),
           child: Column(children: <Widget>[
             Container(
                 child: Image.network(
               i.cover,
               fit: BoxFit.cover,
-              height: width * 1.2,
+              height: width * 1.45,
               width: width,
             )),
             Container(
@@ -104,8 +106,8 @@ class _LogList extends State<LogList> {
               child: SingleChildScrollView(
                 child: Container(
                   width: width,
+//                  padding: EdgeInsets.only(left: 10, right: 10),
                   child: Wrap(
-                    alignment: WrapAlignment.spaceAround, //沿主轴方向居中
                     children: _buildGridTileList(),
                   ),
                 ),
