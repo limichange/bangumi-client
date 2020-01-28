@@ -1,4 +1,5 @@
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/components/NormalImage.dart';
 import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
@@ -43,6 +44,8 @@ class _LogList extends State<LogList> {
         total = res['data']['pages']['total'];
         _list = list;
       });
+
+      return list;
     } else {
       Utils.showToast(context: context, text: res['message']);
     }
@@ -72,12 +75,9 @@ class _LogList extends State<LogList> {
           padding: EdgeInsets.only(top: 10),
           child: Column(children: <Widget>[
             Container(
-                child: Image.network(
-              i.cover,
-              fit: BoxFit.cover,
-              height: width * 1.45,
-              width: width,
-            )),
+                height: width * 1.45,
+                width: width,
+                child: NormalImage(url: i.cover)),
             Container(
                 width: width,
                 padding: EdgeInsets.only(top: 4),

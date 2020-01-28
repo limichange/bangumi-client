@@ -30,8 +30,11 @@ class AnimeListItem extends StatelessWidget {
             child: Container(
               width: 100,
               height: 136,
-              child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage, image: anime.cover),
+              child: FadeInImage.assetNetwork(
+                placeholder: "assets/images/placeholder.jpg",
+                image: anime.cover,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(

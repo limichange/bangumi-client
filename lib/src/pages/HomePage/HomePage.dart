@@ -80,12 +80,15 @@ class _HomePage extends State<HomePage> {
             flex: 1,
             child: RefreshIndicator(
               onRefresh: reload,
-              child: ListView.builder(
-                itemCount: _list.length,
-                itemBuilder: (context, int index) {
-                  return AnimeListItem(anime: _list[index]);
-                },
-              ),
+              child: _list.length == 0
+                  ? Container()
+                  : ListView.builder(
+                      key: ObjectKey(_list[0]),
+                      itemCount: _list.length,
+                      itemBuilder: (context, int index) {
+                        return AnimeListItem(anime: _list[index]);
+                      },
+                    ),
             ),
           )
         ]));

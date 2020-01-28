@@ -16,7 +16,7 @@ class AnimeDetailPage extends StatefulWidget {
 }
 
 class _AnimeDetailPage extends State<AnimeDetailPage> {
-  Anime _anime;
+  Anime _anime = Anime(cover: '', name: '', desc: '', uuid: '');
 
   @override
   void initState() {
@@ -40,10 +40,6 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_anime == null) {
-      return Container();
-    }
-
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
