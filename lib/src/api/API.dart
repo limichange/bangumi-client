@@ -6,8 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
   Dio dio = new Dio(new BaseOptions(
-//    baseUrl: "http://192.168.1.120:8080/api",
-    baseUrl: "https://acgdesu.com/api",
+    baseUrl: "http://192.168.1.120:8080/api",
+//    baseUrl: "https://acgdesu.com/api",
     connectTimeout: 5000,
     receiveTimeout: 3000,
   ));

@@ -1,3 +1,4 @@
+import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Utils {
   static showToast({context, text}) {
     Scaffold.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 1),
       content: Text(text),
     ));
   }
@@ -19,6 +21,16 @@ class Utils {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LoginAndSignupPage()),
+    );
+  }
+
+  static goAnimeDetail(context, uuid) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => AnimeDetailPage(
+                uuid: uuid,
+              )),
     );
   }
 }

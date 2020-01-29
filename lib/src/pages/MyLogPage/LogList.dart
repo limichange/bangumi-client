@@ -6,7 +6,7 @@ import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class LogList extends StatefulWidget {
-  LogList({Key key, this.status}) : super(key: key);
+  LogList({this.status}) : super(key: UniqueKey());
 
   String status;
 
@@ -16,16 +16,17 @@ class LogList extends StatefulWidget {
   }
 }
 
-class _LogList extends State<LogList> {
+class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
   var data;
   List _list = [];
   num total;
+  num _page = 1;
 
   @override
   initState() {
     super.initState();
 
-    loadData();
+    loadmore();
   }
 
   Future loadData() async {
@@ -40,22 +41,31 @@ class _LogList extends State<LogList> {
         list.add(Anime.fromJson(e));
       });
 
-      setState(() {
-        total = res['data']['pages']['total'];
-        _list = list;
-      });
-
-      return list;
+      return {'list': list, 'total': res['data']['pages']['total']};
     } else {
       Utils.showToast(context: context, text: res['message']);
+      return {'list': _list, 'total': total};
     }
   }
 
   Future reload() async {
+    var res = await loadData();
+
     setState(() {
-      _list = [];
+      _page = 1;
+      total = res['total'];
+      _list = res['list'];
     });
-    await loadData();
+  }
+
+  Future loadmore() async {
+    var res = await loadData();
+
+    setState(() {
+      _page = _page + 1;
+      total = res['total'];
+      _list = res['list'];
+    });
   }
 
   onTap(Anime info) {
@@ -73,23 +83,28 @@ class _LogList extends State<LogList> {
           margin:
               EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
           padding: EdgeInsets.only(top: 10),
-          child: Column(children: <Widget>[
-            Container(
-                height: width * 1.45,
-                width: width,
-                child: NormalImage(url: i.cover)),
-            Container(
-                width: width,
-                padding: EdgeInsets.only(top: 4),
-                child: Text(i.name,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    )))
-          ]),
+          child: GestureDetector(
+            onTap: () {
+              Utils.goAnimeDetail(context, i.uuid);
+            },
+            child: Column(children: <Widget>[
+              Container(
+                  height: width * 1.45,
+                  width: width,
+                  child: NormalImage(url: i.cover)),
+              Container(
+                  width: width,
+                  padding: EdgeInsets.only(top: 4),
+                  child: Text(i.name,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      )))
+            ]),
+          ),
         );
       }).toList();
 
@@ -102,19 +117,20 @@ class _LogList extends State<LogList> {
         Container(
           child: RefreshIndicator(
             onRefresh: reload,
-            child: Container(
-              child: SingleChildScrollView(
-                child: Container(
-                  width: width,
-//                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Wrap(
-                    children: _buildGridTileList(),
-                  ),
+            child: SingleChildScrollView(
+              key: UniqueKey(),
+              child: Container(
+                width: width,
+                padding: EdgeInsets.only(bottom: 200),
+                child: Wrap(
+                  children: _buildGridTileList(),
                 ),
               ),
             ),
           ),
         ),
+
+        // count panel
         new Positioned(
             left: 10.0,
             bottom: 10.0,
@@ -143,4 +159,7 @@ class _LogList extends State<LogList> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class StatusSelectButton extends StatefulWidget {
   String uuid;
 
-  StatusSelectButton({this.uuid}) : super(key: ValueKey(uuid));
+  StatusSelectButton({this.uuid}) : super(key: UniqueKey());
 
   @override
   _StatusSelectButton createState() {

@@ -3,7 +3,6 @@ import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class AnimeListItem extends StatelessWidget {
   Anime anime;
