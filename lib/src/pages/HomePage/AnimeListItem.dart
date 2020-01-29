@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AnimeListItem extends StatelessWidget {
   Anime anime;
 
-  AnimeListItem({this.anime});
+  AnimeListItem({Key key, this.anime}) : super(key: key);
 
   goDetail(context) {
     Navigator.push(
@@ -66,7 +66,10 @@ class AnimeListItem extends StatelessWidget {
                       maxLines: 3,
                     ),
                   ),
-                  StatusSelectButton(uuid: anime.uuid)
+                  StatusSelectButton(
+                    uuid: anime.uuid,
+                    key: UniqueKey(),
+                  )
                 ],
               ),
             ),

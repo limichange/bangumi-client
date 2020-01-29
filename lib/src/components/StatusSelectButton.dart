@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 class StatusSelectButton extends StatefulWidget {
   String uuid;
   Key key;
+  String _statusText = '加入我的收藏';
 
-  StatusSelectButton({this.uuid, key}) : super(key: key);
+  StatusSelectButton({this.uuid, this.key}) : super(key: key);
 
   @override
   _StatusSelectButton createState() {
@@ -18,7 +19,6 @@ class StatusSelectButton extends StatefulWidget {
 
 class _StatusSelectButton extends State<StatusSelectButton> {
   var _context;
-  String _statusText = '加入我的收藏';
 
   _changeStatus(status) async {
     var res = await new API().updateAnimeLog(widget.uuid, status);
@@ -29,7 +29,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
       Utils.showToast(context: _context, text: '状态更新为 【$statusText】');
 
       setState(() {
-        _statusText = statusText;
+        widget._statusText = statusText;
       });
     }
   }
@@ -93,6 +93,8 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   void initState() {
     super.initState();
 
+    print('initState');
+
     loadData();
   }
 
@@ -103,7 +105,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
 
       setState(() {
-        _statusText = statusText;
+        widget._statusText = statusText;
       });
     }
   }
@@ -114,7 +116,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
 
     return Container(
       child: RaisedButton(
-        child: Text(_statusText),
+        child: Text(widget._statusText),
         onPressed: () {
           if (globalData.isLogin) {
             _settingModalBottomSheet(context);

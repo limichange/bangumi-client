@@ -61,6 +61,12 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  createList() {
+    return _list.map((i) {
+      return AnimeListItem(key: UniqueKey(), anime: i);
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,12 +88,13 @@ class _HomePage extends State<HomePage> {
               onRefresh: reload,
               child: _list.length == 0
                   ? Container()
-                  : ListView.builder(
+                  : ListView(
                       key: ObjectKey(_list[0]),
-                      itemCount: _list.length,
-                      itemBuilder: (context, int index) {
-                        return AnimeListItem(anime: _list[index]);
-                      },
+                      children: <Widget>[
+                        Column(
+                          children: createList(),
+                        )
+                      ],
                     ),
             ),
           )
