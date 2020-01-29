@@ -21,6 +21,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
   List _list = [];
   num total;
   num _page = 1;
+  bool _isLoading = false;
 
   @override
   initState() {
@@ -117,17 +118,35 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
         Container(
           child: RefreshIndicator(
             onRefresh: reload,
-            child: Container(
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (!_isLoading &&
+                    scrollInfo.metrics.pixels ==
+                        scrollInfo.metrics.maxScrollExtent) {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                }
+
+                return true;
+              },
               child: ListView(
                 key: UniqueKey(),
                 children: <Widget>[
                   Container(
                     width: width,
-                    padding: EdgeInsets.only(bottom: 100),
                     child: Wrap(
                       children: _buildGridTileList(),
                     ),
                   ),
+                  Container(
+                    height: 100,
+                    child: Center(
+                      child: _isLoading
+                          ? CircularProgressIndicator()
+                          : Container(),
+                    ),
+                  )
                 ],
               ),
             ),
