@@ -117,14 +117,18 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
         Container(
           child: RefreshIndicator(
             onRefresh: reload,
-            child: SingleChildScrollView(
-              key: UniqueKey(),
-              child: Container(
-                width: width,
-                padding: EdgeInsets.only(bottom: 200),
-                child: Wrap(
-                  children: _buildGridTileList(),
-                ),
+            child: Container(
+              child: ListView(
+                key: UniqueKey(),
+                children: <Widget>[
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.only(bottom: 100),
+                    child: Wrap(
+                      children: _buildGridTileList(),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
