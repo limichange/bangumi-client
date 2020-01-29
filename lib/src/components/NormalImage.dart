@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class NormalImage extends StatelessWidget {
   String url;
-
-  NormalImage({this.url});
+  NormalImage({this.url, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,9 @@
+import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/MyLogPage/LogList.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyLogPage extends StatefulWidget {
   const MyLogPage({Key key}) : super(key: key);
@@ -28,6 +31,8 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var globalData = Provider.of<GlobalData>(context);
+
     return Scaffold(
         appBar: AppBar(
           key: GlobalKey(),
@@ -51,11 +56,29 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: [
-            LogList(status: 'doing'),
-            LogList(status: 'todo'),
-            LogList(status: 'done'),
-          ],
+          children: globalData.isLogin
+              ? [
+                  LogList(status: 'doing'),
+                  LogList(status: 'todo'),
+                  LogList(status: 'done'),
+                ]
+              : [
+                  Container(
+                    padding: EdgeInsets.all(30.0),
+                    alignment: Alignment.center,
+                    child: LoginButton(),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(30.0),
+                    alignment: Alignment.center,
+                    child: LoginButton(),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(30.0),
+                    alignment: Alignment.center,
+                    child: LoginButton(),
+                  )
+                ],
         ));
   }
 }

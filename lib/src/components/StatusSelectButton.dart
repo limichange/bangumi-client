@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 
 class StatusSelectButton extends StatefulWidget {
   String uuid;
+  Key key;
 
-  StatusSelectButton({this.uuid}) : super(key: UniqueKey());
+  StatusSelectButton({this.uuid, key}) : super(key: key);
 
   @override
   _StatusSelectButton createState() {
@@ -98,7 +99,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   loadData() async {
     var res = await new API().myAnimeLogDetail(widget.uuid);
 
-    if (res['status'] == 200) {
+    if (res['status'] == 200 && mounted) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
 
       setState(() {

@@ -1,5 +1,6 @@
 import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
 import 'package:flutter/material.dart';
@@ -47,19 +48,7 @@ class _MePage extends State<MePage> {
     var noTokenWidget = Container(
       padding: EdgeInsets.all(30.0),
       alignment: Alignment.center,
-      child: RaisedButton(
-        child: Text(
-          '登录/注册',
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LoginAndSignupPage()),
-          );
-        },
-        color: Colors.pink[300],
-        textColor: Colors.white,
-      ),
+      child: LoginButton(),
     );
 
     var hasTokenWidget = Container(

@@ -39,9 +39,11 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
 
     var res = await new API().myAnimeLog(widget.status, _page + 1);
 
-    //    pages: { total: 21, perPage: 20, page: 1, lastPage: 2 },
-    print(res['data']['pages']);
+    print(res);
 
+    if (!mounted) return;
+
+    //    pages: { total: 21, perPage: 20, page: 1, lastPage: 2 },
     setState(() {
       _isLoading = false;
     });
@@ -63,11 +65,12 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
       return res;
     } else {
       Utils.showToast(context: context, text: res['message']);
+      return {'status': 400};
     }
   }
 
   Future reload() async {
-    if (_isLoading) return;
+    if (_isLoading || !mounted) return;
 
     setState(() {
       _loadType = 'reload';
@@ -76,7 +79,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
 
     var res = await loadData();
 
-    if (res['status'] != 200) return;
+    if (res == null || res['status'] != 200) return;
 
     setState(() {
       _list = res['animeList'];
@@ -175,7 +178,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
                   Container(
                     height: 100,
                     child: Center(
-                      child: _isLoading
+                      child: _isLoading && _loadType == 'loadmore'
                           ? CircularProgressIndicator()
                           : Container(),
                     ),
