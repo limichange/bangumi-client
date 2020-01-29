@@ -20,52 +20,87 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
   var data;
   List _list = [];
   num total;
-  num _page = 1;
+  num _page = 0;
   bool _isLoading = false;
+  String _loadType = '';
+  num _lastPage = 1;
 
   @override
   initState() {
     super.initState();
 
-    loadmore();
+    reload();
   }
 
   Future loadData() async {
-    var res = await new API().myAnimeLog(widget.status);
-    List list = new List();
+    setState(() {
+      _isLoading = true;
+    });
+
+    var res = await new API().myAnimeLog(widget.status, _page + 1);
 
     //    pages: { total: 21, perPage: 20, page: 1, lastPage: 2 },
-    print(res);
+    print(res['data']['pages']);
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if (res['status'] == 200) {
+      List list = [];
+
       res['data']['rows'].forEach((e) {
         list.add(Anime.fromJson(e));
       });
 
-      return {'list': list, 'total': res['data']['pages']['total']};
+      setState(() {
+        total = res['data']['pages']['total'];
+        _lastPage = res['data']['pages']['lastPage'];
+      });
+
+      res['animeList'] = list;
+
+      return res;
     } else {
       Utils.showToast(context: context, text: res['message']);
-      return {'list': _list, 'total': total};
     }
   }
 
   Future reload() async {
-    var res = await loadData();
+    if (_isLoading) return;
 
     setState(() {
-      _page = 1;
-      total = res['total'];
-      _list = res['list'];
+      _loadType = 'reload';
+      _page = 0;
+    });
+
+    var res = await loadData();
+
+    if (res['status'] != 200) return;
+
+    setState(() {
+      _list = res['animeList'];
     });
   }
 
   Future loadmore() async {
-    var res = await loadData();
+    if (_isLoading || _page >= _lastPage) return;
 
     setState(() {
+      _loadType = 'loadmore';
       _page = _page + 1;
-      total = res['total'];
-      _list = res['list'];
+    });
+
+    var res = await loadData();
+
+    if (res['status'] != 200) return;
+
+    res['animeList'].forEach((e) {
+      _list.add(e);
+    });
+
+    setState(() {
+      _list = _list;
     });
   }
 
@@ -116,20 +151,18 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
     return Stack(
       children: <Widget>[
         Container(
-          child: RefreshIndicator(
-            onRefresh: reload,
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollInfo) {
-                if (!_isLoading &&
-                    scrollInfo.metrics.pixels ==
-                        scrollInfo.metrics.maxScrollExtent) {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                }
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scrollInfo) {
+              if (!_isLoading &&
+                  scrollInfo.metrics.pixels ==
+                      scrollInfo.metrics.maxScrollExtent) {
+                loadmore();
+              }
 
-                return true;
-              },
+              return true;
+            },
+            child: RefreshIndicator(
+              onRefresh: reload,
               child: ListView(
                 key: UniqueKey(),
                 children: <Widget>[

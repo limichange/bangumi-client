@@ -94,10 +94,10 @@ class API {
     }
   }
 
-  Future myAnimeLog(String status) async {
+  Future myAnimeLog(String status, num page) async {
     try {
-      Response response =
-          await dio.get('/animeLog/myLog', queryParameters: {'status': status});
+      Response response = await dio.get('/animeLog/myLog',
+          queryParameters: {'status': status, 'page': page});
 
       return response.data;
     } catch (e) {
