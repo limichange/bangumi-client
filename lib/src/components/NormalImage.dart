@@ -6,6 +6,8 @@ class NormalImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (url == null || url == '') return new Container();
+
     return FadeInImage.assetNetwork(
       placeholder: "assets/images/placeholder.jpg",
       image: url,
