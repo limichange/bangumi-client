@@ -6,17 +6,20 @@ import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class LogList extends StatefulWidget {
-  LogList({this.status}) : super(key: UniqueKey());
+  LogList({this.status, @required Key key}) : super(key: key);
 
   String status;
 
   @override
   _LogList createState() {
-    return _LogList();
+    return _LogList(status: status);
   }
 }
 
 class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   var data;
   List _list = [];
   num total;
@@ -24,6 +27,9 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
   bool _isLoading = false;
   String _loadType = '';
   num _lastPage = 1;
+  String status;
+
+  _LogList({this.status});
 
   @override
   initState() {
@@ -167,8 +173,9 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
             child: RefreshIndicator(
               onRefresh: reload,
               child: ListView(
-                key: ValueKey(widget.status + 'logList'),
+//                key: ValueKey('ListView' + status),
                 children: <Widget>[
+                  Text(status),
                   Container(
                     width: width,
                     child: Wrap(
@@ -218,7 +225,4 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

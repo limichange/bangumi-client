@@ -58,9 +58,20 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
           controller: _tabController,
           children: globalData.isLogin
               ? [
-                  LogList(status: 'doing'),
-                  LogList(status: 'todo'),
-                  LogList(status: 'done'),
+                  LogList(
+                    status: 'doing',
+                    key: ValueKey('LogListDoing'),
+                  ),
+                  LogList(
+                    status: 'todo',
+                    key: ValueKey('LogListTodo'),
+                  ),
+                  Container(
+                    child: LogList(
+                      status: 'done',
+                      key: ValueKey('LogListDone'),
+                    ),
+                  )
                 ]
               : [
                   Container(

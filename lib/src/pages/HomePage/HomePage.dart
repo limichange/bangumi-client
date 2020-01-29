@@ -8,10 +8,15 @@ class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePage createState() => _HomePage();
+  _HomePage createState() {
+    print('createState page');
+    return _HomePage();
+  }
 }
 
-class _HomePage extends State<HomePage> {
+class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   List<Anime> _list = new List<Anime>();
 
   @override
@@ -62,8 +67,9 @@ class _HomePage extends State<HomePage> {
   }
 
   createList() {
+    print('createList');
     return _list.map((i) {
-      return AnimeListItem(key: UniqueKey(), anime: i);
+      return AnimeListItem(key: ValueKey(i.uuid + 'AnimeListItem'), anime: i);
     }).toList();
   }
 
