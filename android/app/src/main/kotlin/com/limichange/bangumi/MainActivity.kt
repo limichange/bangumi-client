@@ -1,4 +1,4 @@
-package com.example.bangumi
+package com.limichange.bangumi
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

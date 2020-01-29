@@ -167,7 +167,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
             child: RefreshIndicator(
               onRefresh: reload,
               child: ListView(
-                key: UniqueKey(),
+                key: ValueKey(widget.status + 'logList'),
                 children: <Widget>[
                   Container(
                     width: width,
