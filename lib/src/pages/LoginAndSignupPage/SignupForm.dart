@@ -50,7 +50,7 @@ class SignupForm extends StatelessWidget {
                 validator: (value) =>
                     value.length == 0 ? '不能空着 _(:з」∠)_' : null,
                 decoration:
-                    InputDecoration(labelText: "用户名", hintText: "使用邮箱或者手机号"),
+                    InputDecoration(labelText: "用户名", hintText: "字母和数字的组合"),
               ),
               TextFormField(
                 onSaved: (value) => _nickname = value,
