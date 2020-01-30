@@ -22,8 +22,6 @@ class SignupForm extends StatelessWidget {
       var res = await new API().singup(
           username: _username, password: _password, nickname: _nickname);
 
-      print(res['status']);
-
       if (res['status'] == 200) {
         Utils.showToast(context: _context, text: '注册成功 ━(*｀∀´*)ノ亻!');
         onSignupOk();

@@ -49,6 +49,17 @@ class API {
     }
   }
 
+  Future updatePassword(String oldPassword, String newPassword) async {
+    try {
+      Response response = await dio.post('/user/updatePassword',
+          data: {'oldPassword': oldPassword, 'newPassword': newPassword});
+
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
+  }
+
   Future userInfo() async {
     try {
       Response response = await dio.get('/user/info');
@@ -109,8 +120,6 @@ class API {
     try {
       Response response = await dio
           .get('/animeLog/myLogDetail', queryParameters: {'uuid': uuid});
-
-      print(response);
 
       return response.data;
     } catch (e) {

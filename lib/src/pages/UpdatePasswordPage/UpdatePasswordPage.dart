@@ -2,14 +2,7 @@ import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
-class UpdatePasswordPage extends StatefulWidget {
-  @override
-  _UpdatePasswordPage createState() {
-    return _UpdatePasswordPage();
-  }
-}
-
-class _UpdatePasswordPage extends State<UpdatePasswordPage> {
+class UpdatePasswordPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   String _oldPassword;
@@ -23,22 +16,26 @@ class _UpdatePasswordPage extends State<UpdatePasswordPage> {
     if (form.validate()) {
       form.save();
 
-//      var res = await new API().login(_username, _password);
+      var res = await new API().updatePassword(_oldPassword, _password);
 
-      print(_password + _oldPassword + _passwordAgain);
+      print(res);
 
-//      if (res['status'] == 200) {
-////        Navigator.pop(_context);
-//      } else {
-//        Utils.showToast(context: _context, text: res['message']);
-//      }
+      await showDialog(
+          context: _context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(res['message']),
+            );
+          });
+
+      if (res['status'] == 200) {
+        Navigator.pop(_context);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('修改密码'),
@@ -99,8 +96,11 @@ class _UpdatePasswordPage extends State<UpdatePasswordPage> {
                   RaisedButton(
                     color: Colors.pink[300],
                     textColor: Colors.white,
-                    child: Text('登录'),
-                    onPressed: _submit,
+                    child: Text('修改密码'),
+                    onPressed: () {
+                      _context = context;
+                      _submit();
+                    },
                   )
                 ],
               )),
