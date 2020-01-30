@@ -52,10 +52,17 @@ class SignupForm extends StatelessWidget {
                     return '不能空着 _(:з」∠)_';
                   }
 
+                  Pattern pattern =
+                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                  RegExp regex = new RegExp(pattern);
+
+                  if (!regex.hasMatch(value)) return '邮箱格式不对';
+
                   return null;
                 },
+                keyboardType: TextInputType.emailAddress,
                 decoration:
-                    InputDecoration(labelText: "用户名", hintText: "字母和数字的组合"),
+                    InputDecoration(labelText: "邮箱", hintText: "你的邮箱邮箱地址"),
               ),
               TextFormField(
                 onSaved: (value) => _nickname = value,
@@ -73,6 +80,10 @@ class SignupForm extends StatelessWidget {
 
                   if (value.length < 6) {
                     return '你的密码太短了';
+                  }
+
+                  if (value.length < 36) {
+                    return '你的密码太长了';
                   }
 
                   return null;

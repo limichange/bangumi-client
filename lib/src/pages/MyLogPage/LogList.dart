@@ -172,25 +172,24 @@ class _LogList extends State<LogList> {
             },
             child: RefreshIndicator(
               onRefresh: reload,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      width: width,
-                      child: Wrap(
-                        children: _buildGridTileList(),
-                      ),
+              child: ListView(
+                key: PageStorageKey(status),
+                children: <Widget>[
+                  Container(
+                    width: width,
+                    child: Wrap(
+                      children: _buildGridTileList(),
                     ),
-                    Container(
-                      height: 100,
-                      child: Center(
-                        child: _isLoading && _loadType == 'loadmore'
-                            ? CircularProgressIndicator()
-                            : Container(),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 100,
+                    child: Center(
+                      child: _isLoading && _loadType == 'loadmore'
+                          ? CircularProgressIndicator()
+                          : Container(),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

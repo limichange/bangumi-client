@@ -62,8 +62,9 @@ class _LoginForm extends State<LoginForm> {
                     onSaved: (value) => _username = value,
                     validator: (value) =>
                         value.length == 0 ? '不能空着 _(:з」∠)_' : null,
+                    keyboardType: TextInputType.emailAddress,
                     decoration:
-                        InputDecoration(labelText: "用户名", hintText: "请输入用户名"),
+                        InputDecoration(labelText: "邮箱", hintText: "请输入邮箱"),
                   ),
                   TextFormField(
                     obscureText: true,
