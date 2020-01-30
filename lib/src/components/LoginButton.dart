@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return RaisedButton(
       child: Text(
         '登录/注册',

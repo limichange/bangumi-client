@@ -79,11 +79,11 @@ class SignupForm extends StatelessWidget {
                   }
 
                   if (value.length < 6) {
-                    return '你的密码太短了';
+                    return '你的密码太短了 至少6位';
                   }
 
-                  if (value.length < 36) {
-                    return '你的密码太长了';
+                  if (value.length > 36) {
+                    return '你的密码太长了 最多36位';
                   }
 
                   return null;

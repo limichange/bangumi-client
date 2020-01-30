@@ -3,6 +3,7 @@ import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
+import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,23 +52,29 @@ class _MePage extends State<MePage> {
       child: LoginButton(),
     );
 
-    var hasTokenWidget = Container(
-      alignment: Alignment.center,
-      child: LogoutButton(),
+    var hasTokenWidget = Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UpdatePasswordPage()),
+              );
+            },
+            child: Text('更新密码'),
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: LogoutButton(),
+        ),
+      ],
     );
 
     var body = Column(
       children: <Widget>[
-//        Container(
-//          width: 50,
-//          height: 50,
-//          decoration: new BoxDecoration(
-//            image: new DecorationImage(
-//              image: new AssetImage("assets/images/logo.png"),
-//              fit: BoxFit.cover,
-//            ),
-//          ),
-//        ),
         Container(
             padding: EdgeInsets.all(30), child: Text(globalData.nickname)),
         globalData.token == '' ? noTokenWidget : hasTokenWidget
