@@ -81,7 +81,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
               ],
             ),
           ),
-          StatusSelectButton(key: ObjectKey(_anime), uuid: _anime.uuid)
+          StatusSelectButton(key: UniqueKey(), uuid: widget.uuid)
         ]));
   }
 }

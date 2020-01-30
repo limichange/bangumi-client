@@ -110,6 +110,8 @@ class API {
       Response response = await dio
           .get('/animeLog/myLogDetail', queryParameters: {'uuid': uuid});
 
+      print(response);
+
       return response.data;
     } catch (e) {
       return badMessage;

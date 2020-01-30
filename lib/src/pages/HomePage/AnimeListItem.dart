@@ -1,3 +1,4 @@
+import 'package:bangumi/src/components/NormalImage.dart';
 import 'package:bangumi/src/components/StatusSelectButton.dart';
 import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage.dart';
@@ -38,10 +39,9 @@ class _AnimeListItem extends State<AnimeListItem> {
                 child: Container(
                   width: 100,
                   height: 136,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: "assets/images/placeholder.jpg",
-                    image: widget.anime.cover,
-                    fit: BoxFit.cover,
+                  child: NormalImage(
+                    key: ValueKey(widget.anime.cover),
+                    url: widget.anime.cover,
                   ),
                 ),
               ),
@@ -76,7 +76,7 @@ class _AnimeListItem extends State<AnimeListItem> {
                         ),
                       ),
                       StatusSelectButton(
-                        key: ValueKey(widget.anime.uuid + 'StatusSelectButton'),
+                        key: ObjectKey(widget.anime),
                         uuid: widget.anime.uuid,
                       )
                     ],

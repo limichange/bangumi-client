@@ -16,10 +16,7 @@ class LogList extends StatefulWidget {
   }
 }
 
-class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class _LogList extends State<LogList> {
   var data;
   List _list = [];
   num total;
@@ -136,7 +133,10 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
               Container(
                   height: width * 1.45,
                   width: width,
-                  child: NormalImage(url: i.cover)),
+                  child: NormalImage(
+                    url: i.cover,
+                    key: ValueKey(i.cover),
+                  )),
               Container(
                   width: width,
                   padding: EdgeInsets.only(top: 4),
@@ -172,25 +172,25 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
             },
             child: RefreshIndicator(
               onRefresh: reload,
-              child: ListView(
-//                key: ValueKey('ListView' + status),
-                children: <Widget>[
-                  Text(status),
-                  Container(
-                    width: width,
-                    child: Wrap(
-                      children: _buildGridTileList(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: width,
+                      child: Wrap(
+                        children: _buildGridTileList(),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 100,
-                    child: Center(
-                      child: _isLoading && _loadType == 'loadmore'
-                          ? CircularProgressIndicator()
-                          : Container(),
-                    ),
-                  )
-                ],
+                    Container(
+                      height: 100,
+                      child: Center(
+                        child: _isLoading && _loadType == 'loadmore'
+                            ? CircularProgressIndicator()
+                            : Container(),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

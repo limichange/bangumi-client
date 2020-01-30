@@ -102,7 +102,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   loadData() async {
     var res = await new API().myAnimeLogDetail(widget.uuid);
 
-    if (res['status'] == 200 && mounted) {
+    if (res['status'] == 200) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
 
       setState(() {

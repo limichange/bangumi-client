@@ -9,6 +9,7 @@ class NormalImage extends StatelessWidget {
     if (url == null || url == '') return new Container();
 
     return FadeInImage.assetNetwork(
+      key: ValueKey(url),
       placeholder: "assets/images/placeholder.jpg",
       image: url,
       fit: BoxFit.cover,

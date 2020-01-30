@@ -15,6 +15,7 @@ class MyLogPage extends StatefulWidget {
 class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
   var data;
   TabController _tabController;
+  num _index = 0;
 
   @override
   void initState() {
@@ -40,6 +41,11 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
           // the App.build method, and use it to set our appbar title.
           title: Text("我的收藏"),
           bottom: TabBar(
+            onTap: (index) {
+              setState(() {
+                _index = index;
+              });
+            },
             controller: _tabController,
             tabs: [
               Tab(
@@ -54,42 +60,27 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: globalData.isLogin
-              ? [
+        body: Container(
+          child: !globalData.isLogin
+              ? Container(
+                  padding: EdgeInsets.all(30.0),
+                  alignment: Alignment.center,
+                  child: LoginButton(),
+                )
+              : IndexedStack(children: <Widget>[
                   LogList(
                     status: 'doing',
-                    key: ValueKey('LogListDoing'),
+                    key: ObjectKey('LogListDoing'),
                   ),
                   LogList(
                     status: 'todo',
-                    key: ValueKey('LogListTodo'),
+                    key: ObjectKey('LogListTodo'),
                   ),
-                  Container(
-                    child: LogList(
-                      status: 'done',
-                      key: ValueKey('LogListDone'),
-                    ),
-                  )
-                ]
-              : [
-                  Container(
-                    padding: EdgeInsets.all(30.0),
-                    alignment: Alignment.center,
-                    child: LoginButton(),
+                  LogList(
+                    status: 'done',
+                    key: ObjectKey('LogListDone'),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(30.0),
-                    alignment: Alignment.center,
-                    child: LoginButton(),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(30.0),
-                    alignment: Alignment.center,
-                    child: LoginButton(),
-                  )
-                ],
+                ], index: _index),
         ));
   }
 }
