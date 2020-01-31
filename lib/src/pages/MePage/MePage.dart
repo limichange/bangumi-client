@@ -55,18 +55,6 @@ class _MePage extends State<MePage> {
 
     var hasTokenWidget = Column(
       children: <Widget>[
-        RaisedButton(
-          child: Text('打开外部应用'),
-          onPressed: () async {
-            const app = 'https://m.bilibili.com/bangumi/play/ep84342';
-
-            if (await canLaunch(app)) {
-              await launch(app);
-            } else {
-              throw 'Could not launch $app';
-            }
-          },
-        ),
         Container(
           alignment: Alignment.center,
           child: RaisedButton(

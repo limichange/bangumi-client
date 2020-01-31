@@ -127,6 +127,17 @@ class API {
     }
   }
 
+  Future getEpisodeByAnime(String uuid) async {
+    try {
+      Response response =
+          await dio.get('/episode/getByAnime', queryParameters: {'uuid': uuid});
+
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
+  }
+
   Future searchAnime(String searchStr, num page) async {
     try {
       Response response = await dio.get('/anime/search',

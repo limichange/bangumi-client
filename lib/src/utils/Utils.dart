@@ -1,4 +1,4 @@
-import 'package:bangumi/src/pages/AnimeDetailPage.dart';
+import 'package:bangumi/src/pages/AnimeDetailPage/AnimeDetailPage.dart';
 import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

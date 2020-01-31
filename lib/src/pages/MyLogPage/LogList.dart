@@ -1,7 +1,7 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/NormalImage.dart';
 import 'package:bangumi/src/model/Anime.dart';
-import 'package:bangumi/src/pages/AnimeDetailPage.dart';
+import 'package:bangumi/src/pages/AnimeDetailPage/AnimeDetailPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
