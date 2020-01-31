@@ -30,6 +30,7 @@ dependencies:
   rxdart:
   provider:
   transparent_image:
+  url_launcher:
 
 dev_dependencies:
   flutter_test:

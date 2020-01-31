@@ -7,6 +7,7 @@ import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key key}) : super(key: key);
@@ -54,6 +55,18 @@ class _MePage extends State<MePage> {
 
     var hasTokenWidget = Column(
       children: <Widget>[
+        RaisedButton(
+          child: Text('打开外部应用'),
+          onPressed: () async {
+            const app = 'https://m.bilibili.com/bangumi/play/ep84342';
+
+            if (await canLaunch(app)) {
+              await launch(app);
+            } else {
+              throw 'Could not launch $app';
+            }
+          },
+        ),
         Container(
           alignment: Alignment.center,
           child: RaisedButton(
