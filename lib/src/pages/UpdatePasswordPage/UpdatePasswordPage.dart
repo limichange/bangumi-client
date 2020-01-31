@@ -18,8 +18,6 @@ class UpdatePasswordPage extends StatelessWidget {
 
       var res = await new API().updatePassword(_oldPassword, _password);
 
-      print(res);
-
       await showDialog(
           context: _context,
           builder: (BuildContext context) {

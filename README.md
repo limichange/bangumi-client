@@ -18,3 +18,11 @@ samples, guidance on mobile development, and a full API reference.
 ```js
 flutter pub run flutter_launcher_icons:main
 ```
+
+flutter pub get  
+
+flutter build ios
+
+flutter build apk
+
+https://blog.csdn.net/SCHOLAR_II/article/details/80684896
