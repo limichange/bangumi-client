@@ -38,6 +38,20 @@ class API {
     }));
   }
 
+  Future appVersion() {
+    return get('/app/version');
+  }
+
+  Future get(String url) async {
+    try {
+      Response response = await dio.get(url);
+
+      return response.data;
+    } catch (e) {
+      return badMessage;
+    }
+  }
+
   Future login(String username, String password) async {
     try {
       Response response = await dio.post('/user/login',

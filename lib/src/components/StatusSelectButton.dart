@@ -12,7 +12,6 @@ class StatusSelectButton extends StatefulWidget {
 
   @override
   _StatusSelectButton createState() {
-    print('createState');
     return new _StatusSelectButton();
   }
 }
@@ -93,8 +92,6 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   @override
   void initState() {
     super.initState();
-
-    print('initState');
 
     loadData();
   }

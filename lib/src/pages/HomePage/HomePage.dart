@@ -67,7 +67,6 @@ class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   createList() {
-    print('createList');
     return _list.map((i) {
       return AnimeListItem(key: ValueKey(i.uuid + 'AnimeListItem'), anime: i);
     }).toList();

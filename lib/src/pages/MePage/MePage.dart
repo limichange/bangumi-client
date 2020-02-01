@@ -29,15 +29,20 @@ class _MePage extends State<MePage> {
     loadVersion();
   }
 
-  loadVersion() {
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
+  loadVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
 
-      setState(() {
-        versionStr = 'v' + version + '(' + buildNumber + ')';
-      });
+    setState(() {
+      versionStr = '当前版本 v' + version + '(' + buildNumber + ')';
     });
+
+    var serverAppVersionRes = await new API().appVersion();
+
+    if (serverAppVersionRes['status'] == 200) {
+      versionStr += ' 最新版本 v' + serverAppVersionRes['data'];
+    }
   }
 
   loadKey() async {
