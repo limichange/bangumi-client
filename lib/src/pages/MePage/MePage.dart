@@ -1,13 +1,12 @@
 import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
-import 'package:bangumi/src/pages/LoginAndSignupPage/LoginAndSignupPage.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
 import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key key}) : super(key: key);
@@ -20,12 +19,25 @@ class MePage extends StatefulWidget {
 
 class _MePage extends State<MePage> {
   String key = '';
+  String versionStr = '';
 
   @override
   void initState() {
     super.initState();
 
     loadKey();
+    loadVersion();
+  }
+
+  loadVersion() {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      String version = packageInfo.version;
+      String buildNumber = packageInfo.buildNumber;
+
+      setState(() {
+        versionStr = 'v' + version + '(' + buildNumber + ')';
+      });
+    });
   }
 
   loadKey() async {
@@ -78,7 +90,11 @@ class _MePage extends State<MePage> {
       children: <Widget>[
         Container(
             padding: EdgeInsets.all(30), child: Text(globalData.nickname)),
-        globalData.token == '' ? noTokenWidget : hasTokenWidget
+        globalData.token == '' ? noTokenWidget : hasTokenWidget,
+        Container(
+          margin: EdgeInsets.all(20),
+          child: Text(versionStr),
+        )
       ],
     );
 
