@@ -114,9 +114,6 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
               padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: episodesList(),
             ),
-          ),
-          Container(
-            margin: new EdgeInsets.only(top: 100),
           )
         ]),
       ),
