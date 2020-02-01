@@ -23,18 +23,19 @@ class EpisodeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          margin: new EdgeInsets.only(right: 10),
+          margin: EdgeInsets.only(right: 10),
           padding: EdgeInsets.all(10),
-          decoration: new BoxDecoration(
-            border: new Border.all(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            border: Border.all(
                 color: Colors.black12, width: 1, style: BorderStyle.solid),
           ),
           width: 200,
-          height: 90,
+          height: 88,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(episode.title == null ? ' ' : ' ST' + episode.title + 'iE',
+              Text(episode.title == null ? ' ' : '第' + episode.title + '话',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -42,7 +43,9 @@ class EpisodeCard extends StatelessWidget {
               Container(
                 margin: new EdgeInsets.only(top: 5),
                 child: Text(
-                  episode.longTitle,
+                  episode.longTitle == null ? ' ' : episode.longTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black38,

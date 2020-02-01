@@ -115,19 +115,17 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   Widget build(BuildContext context) {
     var globalData = Provider.of<GlobalData>(context);
 
-    return Container(
-      child: RaisedButton(
-        child: Text(_statusText),
-        onPressed: () {
-          if (globalData.isLogin) {
-            _settingModalBottomSheet(context);
-          } else {
-            Utils.goLogin(context);
-          }
-        },
-        color: Colors.pink[300],
-        textColor: Colors.white,
-      ),
+    return RaisedButton(
+      child: Text(_statusText),
+      onPressed: () {
+        if (globalData.isLogin) {
+          _settingModalBottomSheet(context);
+        } else {
+          Utils.goLogin(context);
+        }
+      },
+      color: Colors.pink[300],
+      textColor: Colors.white,
     );
   }
 }
