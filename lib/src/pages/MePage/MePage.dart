@@ -2,7 +2,9 @@ import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
+import 'package:bangumi/src/pages/UpdateLogPage/UpdateLogPage.dart';
 import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -76,10 +78,7 @@ class _MePage extends State<MePage> {
           alignment: Alignment.center,
           child: RaisedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UpdatePasswordPage()),
-              );
+              Utils.go(context, UpdatePasswordPage());
             },
             child: Text('更新密码'),
           ),
@@ -96,6 +95,15 @@ class _MePage extends State<MePage> {
         Container(
             padding: EdgeInsets.all(30), child: Text(globalData.nickname)),
         globalData.token == '' ? noTokenWidget : hasTokenWidget,
+        Container(
+          alignment: Alignment.center,
+          child: RaisedButton(
+            onPressed: () {
+              Utils.go(context, UpdateLogPage());
+            },
+            child: Text('更新日志'),
+          ),
+        ),
         Container(
           margin: EdgeInsets.all(20),
           child: Text(versionStr),

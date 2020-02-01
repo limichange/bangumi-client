@@ -24,6 +24,13 @@ class Utils {
     );
   }
 
+  static go(context, page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
   static goAnimeDetail(context, uuid) {
     Navigator.push(
       context,

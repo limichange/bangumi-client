@@ -38,9 +38,8 @@ class API {
     }));
   }
 
-  Future appVersion() {
-    return get('/app/version');
-  }
+  Future appVersion() => get('/app/version');
+  Future appUpdateLog() => get('/app/updateLog');
 
   Future get(String url) async {
     try {
