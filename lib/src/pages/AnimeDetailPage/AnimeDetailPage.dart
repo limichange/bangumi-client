@@ -130,6 +130,17 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                             Expanded(
                               child: StatusSelectButton(
                                   key: UniqueKey(), uuid: widget.uuid),
+                            ),
+                            Container(
+                              width: 58,
+                              padding: EdgeInsets.only(left: 8),
+                              child: RaisedButton(
+                                child: Icon(
+                                  Icons.feedback,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
                             )
                           ],
                         ),
