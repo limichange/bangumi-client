@@ -49,11 +49,11 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
 
     if (res['status'] == 200) {
       anime = Anime.fromJson(res['data']);
-    }
 
-    setState(() {
-      _anime = anime;
-    });
+      setState(() {
+        _anime = anime;
+      });
+    }
   }
 
   episodesList() {
