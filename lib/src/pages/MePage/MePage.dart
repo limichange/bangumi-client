@@ -1,6 +1,7 @@
 import 'package:bangumi/src/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
+import 'package:bangumi/src/pages/ContactPage/ContactPage.dart';
 import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
 import 'package:bangumi/src/pages/UpdateLogPage/UpdateLogPage.dart';
 import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
@@ -102,6 +103,14 @@ class _MePage extends State<MePage> {
               Utils.go(context, UpdateLogPage());
             },
             child: Text('更新日志'),
+          ),
+        ),
+        Container(
+          child: RaisedButton(
+            onPressed: () {
+              Utils.go(context, ContactPage());
+            },
+            child: Text('联系我们'),
           ),
         ),
         Container(
