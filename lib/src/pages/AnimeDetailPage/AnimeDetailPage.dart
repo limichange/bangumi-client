@@ -20,6 +20,7 @@ class AnimeDetailPage extends StatefulWidget {
 class _AnimeDetailPage extends State<AnimeDetailPage> {
   Anime _anime = Anime(cover: '', name: '', desc: '', uuid: '');
   List<Episode> episodes = new List();
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -54,6 +55,10 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
         _anime = anime;
       });
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   episodesList() {
@@ -72,54 +77,60 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
         // the App.build method, and use it to set our appbar title.
         title: Text("详情"),
       ),
-      body: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(12),
-            child: Center(
-              child: Container(
-                width: 220,
-                height: 280,
-                child: NormalImage(url: _anime.cover),
-              ),
-            ),
-          ),
-          Container(
-            child: Text(
-              _anime.name,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                GestureDetector(
-                  child: Text(
-                    _anime.desc,
+      body: _isLoading
+          ? Container(
+              height: 100,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ))
+          : SingleChildScrollView(
+              child: Column(children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(12),
+                  child: Center(
+                    child: Container(
+                      width: 220,
+                      height: 280,
+                      child: NormalImage(url: _anime.cover),
+                    ),
                   ),
                 ),
-              ],
+                Container(
+                  child: Text(
+                    _anime.name,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Text(
+                          _anime.desc,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StatusSelectButton(key: UniqueKey(), uuid: widget.uuid),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    child: episodesList(),
+                  ),
+                ),
+                Container(
+                  margin: new EdgeInsets.only(top: 100),
+                )
+              ]),
             ),
-          ),
-          StatusSelectButton(key: UniqueKey(), uuid: widget.uuid),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-              child: episodesList(),
-            ),
-          ),
-          Container(
-            margin: new EdgeInsets.only(top: 100),
-          )
-        ]),
-      ),
     );
   }
 }
