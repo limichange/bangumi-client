@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NormalImage extends StatelessWidget {
@@ -8,10 +9,13 @@ class NormalImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (url == null || url == '') return new Container();
 
-    return FadeInImage.assetNetwork(
+    return CachedNetworkImage(
       key: ValueKey(url),
-      placeholder: "assets/images/placeholder.jpg",
-      image: url,
+      placeholder: (context, url) =>
+          Image(image: AssetImage('assets/images/placeholder.jpg')),
+      errorWidget: (context, url, error) =>
+          Image(image: AssetImage('assets/images/placeholder-work.jpg')),
+      imageUrl: url,
       fit: BoxFit.cover,
     );
   }
