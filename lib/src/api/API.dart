@@ -40,6 +40,11 @@ class API {
 
   Future appVersion() => get('/app/version');
   Future appUpdateLog() => get('/app/updateLog');
+  Future addFeedback(String content, String type, String animeUuid) => post(
+      '/feedback/add',
+      {'content': content, 'type': type, 'animeUuid': animeUuid});
+  Future login(String username, String password) =>
+      post('/user/login', {'username': username, 'password': password});
 
   Future get(String url) async {
     try {
@@ -51,10 +56,9 @@ class API {
     }
   }
 
-  Future login(String username, String password) async {
+  Future post(String url, data) async {
     try {
-      Response response = await dio.post('/user/login',
-          data: {'username': username, 'password': password});
+      Response response = await dio.post(url, data: data);
 
       return response.data;
     } catch (e) {

@@ -138,7 +138,11 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                               padding: EdgeInsets.only(left: 8),
                               child: RaisedButton(
                                 onPressed: () {
-                                  Utils.go(context, FeedbackPage());
+                                  Utils.go(
+                                      context,
+                                      FeedbackPage(
+                                        anime: _anime,
+                                      ));
                                 },
                                 child: Icon(
                                   Icons.feedback,

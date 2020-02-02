@@ -91,16 +91,14 @@ class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
             flex: 1,
             child: RefreshIndicator(
               onRefresh: reload,
-              child: _list.length == 0
-                  ? Container()
-                  : ListView(
-                      key: ObjectKey(_list[0]),
-                      children: <Widget>[
-                        Column(
-                          children: createList(),
-                        )
-                      ],
-                    ),
+              child: ListView(
+                key: ObjectKey(_list),
+                children: <Widget>[
+                  Column(
+                    children: createList(),
+                  )
+                ],
+              ),
             ),
           )
         ]));
