@@ -6,6 +6,8 @@ import 'package:bangumi/src/components/StatusSelectButton.dart';
 import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/model/Episode.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage/EpisodeCard.dart';
+import 'package:bangumi/src/pages/FeedbackPage/FeedbackPage.dart';
+import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class AnimeDetailPage extends StatefulWidget {
@@ -135,6 +137,9 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                               width: 58,
                               padding: EdgeInsets.only(left: 8),
                               child: RaisedButton(
+                                onPressed: () {
+                                  Utils.go(context, FeedbackPage());
+                                },
                                 child: Icon(
                                   Icons.feedback,
                                   size: 18,
