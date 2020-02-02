@@ -1,4 +1,5 @@
-import 'package:bangumi/src/GlobalData.dart';
+import 'package:bangumi/src/state/AnimeLogStatusData.dart';
+import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MainPage.dart';
 import 'package:bangumi/src/reportError.dart';
@@ -6,9 +7,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   try {
-    runApp(MultiProvider(
-        providers: [ChangeNotifierProvider(create: (content) => GlobalData())],
-        child: MyApp()));
+    runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(create: (content) => GlobalData()),
+      ChangeNotifierProvider(create: (content) => AnimeLogStatusData())
+    ], child: MyApp()));
   } catch (error, stackTrace) {
     reportError(error, stackTrace);
   }

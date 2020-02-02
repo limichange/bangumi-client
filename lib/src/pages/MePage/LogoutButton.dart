@@ -1,4 +1,4 @@
-import 'package:bangumi/src/GlobalData.dart';
+import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

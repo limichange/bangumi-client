@@ -1,4 +1,5 @@
-import 'package:bangumi/src/GlobalData.dart';
+import 'package:bangumi/src/state/AnimeLogStatusData.dart';
+import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +18,15 @@ class StatusSelectButton extends StatefulWidget {
 }
 
 class _StatusSelectButton extends State<StatusSelectButton> {
-  var _context;
-  String _statusText = '加入我的收藏';
-
   _changeStatus(status) async {
     var res = await new API().updateAnimeLog(widget.uuid, status);
 
     String statusText = converStatusToText(status);
 
     if (res['status'] == 200) {
-      Utils.showToast(context: _context, text: '状态更新为 【$statusText】');
+      Utils.showToast(context: context, text: '状态更新为 【$statusText】');
 
-      setState(() {
-        _statusText = statusText;
-      });
+      _updateLocalStatus(statusText);
     }
   }
 
@@ -50,9 +46,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
     return statusText;
   }
 
-  void _settingModalBottomSheet(context) {
-    _context = context;
-
+  void _settingModalBottomSheet() {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -102,21 +96,25 @@ class _StatusSelectButton extends State<StatusSelectButton> {
     if (res['status'] == 200) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
 
-      setState(() {
-        _statusText = statusText;
-      });
+      _updateLocalStatus(statusText);
     }
+  }
+
+  _updateLocalStatus(String statusText) {
+    Provider.of<AnimeLogStatusData>(context, listen: false)
+        .updateStatus(widget.uuid, statusText);
   }
 
   @override
   Widget build(BuildContext context) {
+    var statusText = Provider.of<AnimeLogStatusData>(context).get(widget.uuid);
     var globalData = Provider.of<GlobalData>(context);
 
     return RaisedButton(
-      child: Text(_statusText),
+      child: Text(statusText),
       onPressed: () {
         if (globalData.isLogin) {
-          _settingModalBottomSheet(context);
+          _settingModalBottomSheet();
         } else {
           Utils.goLogin(context);
         }

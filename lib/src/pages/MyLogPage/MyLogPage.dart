@@ -1,4 +1,4 @@
-import 'package:bangumi/src/GlobalData.dart';
+import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/MyLogPage/LogList.dart';
