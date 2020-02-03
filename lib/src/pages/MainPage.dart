@@ -34,7 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       Provider.of<GlobalData>(context, listen: false).updatePageIndex(index);
 
-      eventBus.fire(UpdateMyLogListEvent());
+      if (index == 1) {
+        eventBus.fire(UpdateMyLogListEvent());
+      }
     });
   }
 
