@@ -6,13 +6,20 @@ class GlobalData extends ChangeNotifier {
   String _token = '';
   String _nickname = '';
   bool _isLogin = false;
+  num _pageIndex = 0;
 
   String get token => _token;
   String get nickname => _nickname;
   bool get isLogin => _isLogin;
+  num get pageIndex => _pageIndex;
 
   GlobalData() {
     init();
+  }
+
+  updatePageIndex(index) {
+    _pageIndex = index;
+    notifyListeners();
   }
 
   init() async {

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/NormalImage.dart';
+import 'package:bangumi/src/eventBus/UpdateMyLogListEvent.dart';
+import 'package:bangumi/src/eventBus/eventBus.dart';
 import 'package:bangumi/src/model/Anime.dart';
 import 'package:bangumi/src/pages/AnimeDetailPage/AnimeDetailPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
@@ -25,6 +29,7 @@ class _LogList extends State<LogList> {
   String _loadType = '';
   num _lastPage = 1;
   String status;
+  StreamSubscription _eventSub;
 
   _LogList({this.status});
 
@@ -33,6 +38,16 @@ class _LogList extends State<LogList> {
     super.initState();
 
     reload();
+
+    _eventSub = eventBus.on<UpdateMyLogListEvent>().listen((event) {
+      reload();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _eventSub.cancel();
   }
 
   Future loadData() async {

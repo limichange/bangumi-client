@@ -1,7 +1,11 @@
+import 'package:bangumi/src/eventBus/UpdateMyLogListEvent.dart';
+import 'package:bangumi/src/eventBus/eventBus.dart';
 import 'package:bangumi/src/pages/HomePage/HomePage.dart';
 import 'package:bangumi/src/pages/MePage/MePage.dart';
+import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MyLogPage/MyLogPage.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -22,26 +26,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
   final homePage = new HomePage(key: PageStorageKey('Page1'));
   final myLogPage = new MyLogPage(key: PageStorageKey('Page2'));
   final mePage = new MePage(key: PageStorageKey('Page3'));
 
   void onTabTapped(int index) {
     setState(() {
-      _currentIndex = index;
+      Provider.of<GlobalData>(context, listen: false).updatePageIndex(index);
+
+      eventBus.fire(UpdateMyLogListEvent());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var globalData = Provider.of<GlobalData>(context);
+
     return Scaffold(
       body: IndexedStack(
           children: <Widget>[homePage, myLogPage, mePage],
-          index: _currentIndex),
+          index: globalData.pageIndex),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
-        currentIndex: _currentIndex,
+        currentIndex: globalData.pageIndex,
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),

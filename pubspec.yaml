@@ -32,6 +32,7 @@ dependencies:
   transparent_image:
   url_launcher:
   package_info:
+  event_bus:
 
 dev_dependencies:
   flutter_test:

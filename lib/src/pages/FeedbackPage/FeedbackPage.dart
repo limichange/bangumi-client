@@ -105,7 +105,6 @@ class _FeedbackPage extends State<FeedbackPage> {
                         });
                       },
                       maxLines: 8,
-                      autofocus: true,
                       style: TextStyle(fontSize: 18),
                       decoration:
                           InputDecoration.collapsed(hintText: "填写更加详细的内容"),
