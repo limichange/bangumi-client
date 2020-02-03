@@ -58,11 +58,14 @@ class _UpdateLogPage extends State<UpdateLogPage> {
           innerlist.add(Container(child: Text(i)));
         });
 
-        list.add(Container(
-          padding: EdgeInsets.all(12),
-          child: Column(
-            children: innerlist,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        list.add(Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Container(
+            width: double.infinity,
+            child: Column(
+              children: innerlist,
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
           ),
         ));
       });
