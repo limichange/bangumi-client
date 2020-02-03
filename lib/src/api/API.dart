@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+API api = API();
+
 class API {
   Dio dio = new Dio(new BaseOptions(
 //    baseUrl: "http://0.0.0.0:8080/api",
@@ -38,17 +40,11 @@ class API {
     }));
   }
 
-  Future appVersion() => get('/app/version');
-  Future appUpdateLog() => get('/app/updateLog');
-  Future addFeedback(String content, String type, String animeUuid) => post(
-      '/feedback/add',
-      {'content': content, 'type': type, 'animeUuid': animeUuid});
-  Future login(String username, String password) =>
-      post('/user/login', {'username': username, 'password': password});
-
-  Future get(String url) async {
+  Future get(String url, {queryParameters}) async {
     try {
-      Response response = await dio.get(url);
+      Response response = queryParameters == null
+          ? await dio.get(url)
+          : await dio.get(url, queryParameters: queryParameters);
 
       return response.data;
     } catch (e) {
@@ -66,114 +62,43 @@ class API {
     }
   }
 
-  Future updatePassword(String oldPassword, String newPassword) async {
-    try {
-      Response response = await dio.post('/user/updatePassword',
-          data: {'oldPassword': oldPassword, 'newPassword': newPassword});
+  Future appVersion() => get('/app/version');
+  Future appUpdateLog() => get('/app/updateLog');
+  Future addFeedback(String content, String type, String animeUuid) => post(
+      '/feedback/add',
+      {'content': content, 'type': type, 'animeUuid': animeUuid});
+  Future login(String username, String password) =>
+      post('/user/login', {'username': username, 'password': password});
 
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
+  Future updatePassword(String oldPassword, String newPassword) => post(
+      '/user/updatePassword',
+      {'oldPassword': oldPassword, 'newPassword': newPassword});
+
+  Future userInfo() => get('/user/info');
+  Future singup({String username, String password, String nickname}) {
+    return post('/user/signup',
+        {'username': username, 'nickname': nickname, 'password': password});
   }
 
-  Future userInfo() async {
-    try {
-      Response response = await dio.get('/user/info');
+  Future updateAnimeLog(String uuid, String status) =>
+      post('/animeLog/update', {'uuid': uuid, 'status': status});
 
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
+  Future getAnimeHome() {
+    return get('/anime/home');
   }
 
-  Future singup({String username, String password, String nickname}) async {
-    try {
-      Response response = await dio.post('/user/signup', data: {
-        'username': username,
-        'nickname': nickname,
-        'password': password
-      });
+  Future myAnimeLog(String status, num page) =>
+      get('/animeLog/myLog', queryParameters: {'status': status, 'page': page});
 
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
+  Future myAnimeLogDetail(String uuid) =>
+      get('/animeLog/myLogDetail', queryParameters: {'uuid': uuid});
 
-  Future updateAnimeLog(String uuid, String status) async {
-    try {
-      Response response = await dio
-          .post('/animeLog/update', data: {'uuid': uuid, 'status': status});
+  Future getEpisodeByAnime(String uuid) =>
+      get('/episode/getByAnime', queryParameters: {'uuid': uuid});
 
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
+  Future searchAnime(String searchStr, num page) => get('/anime/search',
+      queryParameters: {'searchStr': searchStr, 'page': page});
 
-  Future getAnimeHome() async {
-    try {
-      Response response = await dio.get('/anime/home');
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
-
-  Future myAnimeLog(String status, num page) async {
-    try {
-      Response response = await dio.get('/animeLog/myLog',
-          queryParameters: {'status': status, 'page': page});
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
-
-  Future myAnimeLogDetail(String uuid) async {
-    try {
-      Response response = await dio
-          .get('/animeLog/myLogDetail', queryParameters: {'uuid': uuid});
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
-
-  Future getEpisodeByAnime(String uuid) async {
-    try {
-      Response response =
-          await dio.get('/episode/getByAnime', queryParameters: {'uuid': uuid});
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
-
-  Future searchAnime(String searchStr, num page) async {
-    try {
-      Response response = await dio.get('/anime/search',
-          queryParameters: {'searchStr': searchStr, 'page': page});
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
-
-  Future AnimeDetail(String uuid) async {
-    try {
-      Response response =
-          await dio.get('/anime/detail', queryParameters: {'uuid': uuid});
-
-      return response.data;
-    } catch (e) {
-      return badMessage;
-    }
-  }
+  Future AnimeDetail(String uuid) =>
+      get('/anime/detail', queryParameters: {'uuid': uuid});
 }

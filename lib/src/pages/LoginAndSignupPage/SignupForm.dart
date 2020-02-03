@@ -19,7 +19,7 @@ class SignupForm extends StatelessWidget {
     if (form.validate()) {
       form.save();
 
-      var res = await new API().singup(
+      var res = await api.singup(
           username: _username, password: _password, nickname: _nickname);
 
       if (res['status'] == 200) {

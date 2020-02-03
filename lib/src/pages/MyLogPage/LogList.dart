@@ -55,7 +55,7 @@ class _LogList extends State<LogList> {
       _isLoading = true;
     });
 
-    var res = await new API().myAnimeLog(widget.status, _page + 1);
+    var res = await api.myAnimeLog(widget.status, _page + 1);
 
     print(res);
 

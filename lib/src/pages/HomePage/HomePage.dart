@@ -26,7 +26,7 @@ class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   Future loadData() async {
-    var res = await new API().getAnimeHome();
+    var res = await api.getAnimeHome();
     List<Anime> list = new List<Anime>();
 
     if (res['status'] == 200) {
@@ -53,7 +53,7 @@ class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
     print(string);
     List<Anime> list = new List<Anime>();
 
-    var res = await new API().searchAnime(string, 1);
+    var res = await api.searchAnime(string, 1);
 
     print(res['data']['rows']);
 

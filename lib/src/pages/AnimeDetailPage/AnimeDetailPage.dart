@@ -35,7 +35,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   }
 
   loadEpisodes() async {
-    var res = await new API().getEpisodeByAnime(widget.uuid);
+    var res = await api.getEpisodeByAnime(widget.uuid);
 
     if (res['status'] == 200) {
       res['data']['episodes'].forEach((item) {
@@ -49,7 +49,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   }
 
   loadData() async {
-    var res = await new API().AnimeDetail(widget.uuid);
+    var res = await api.AnimeDetail(widget.uuid);
     Anime anime;
 
     if (res['status'] == 200) {

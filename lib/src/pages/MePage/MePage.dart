@@ -42,7 +42,7 @@ class _MePage extends State<MePage> {
       versionStr = '当前版本 v' + version + '(' + buildNumber + ')';
     });
 
-    var serverAppVersionRes = await new API().appVersion();
+    var serverAppVersionRes = await api.appVersion();
 
     if (serverAppVersionRes['status'] == 200) {
       versionStr += ' 最新版本 v' + serverAppVersionRes['data'];
@@ -54,7 +54,7 @@ class _MePage extends State<MePage> {
     String token = prefs.getString('token');
 
     if (token != null) {
-      new API().userInfo();
+      api.userInfo();
 
       setState(() {
         key = token;

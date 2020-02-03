@@ -19,7 +19,7 @@ class StatusSelectButton extends StatefulWidget {
 
 class _StatusSelectButton extends State<StatusSelectButton> {
   _changeStatus(status) async {
-    var res = await new API().updateAnimeLog(widget.uuid, status);
+    var res = await api.updateAnimeLog(widget.uuid, status);
 
     String statusText = converStatusToText(status);
 
@@ -91,7 +91,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
   }
 
   loadData() async {
-    var res = await new API().myAnimeLogDetail(widget.uuid);
+    var res = await api.myAnimeLogDetail(widget.uuid);
 
     if (res['status'] == 200) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);

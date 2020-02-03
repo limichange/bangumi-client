@@ -33,7 +33,7 @@ class GlobalData extends ChangeNotifier {
   }
 
   getUserInfo() async {
-    var res = await new API().userInfo();
+    var res = await api.userInfo();
 
     if (res['status'] == 200) {
       _nickname = res['data']['nickname'];

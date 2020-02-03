@@ -25,7 +25,7 @@ class _LoginForm extends State<LoginForm> {
     if (form.validate()) {
       form.save();
 
-      var res = await new API().login(_username, _password);
+      var res = await api.login(_username, _password);
 
       if (res['status'] == 200) {
         Utils.showToast(context: _context, text: '欢迎━(*｀∀´*)ノ亻!');

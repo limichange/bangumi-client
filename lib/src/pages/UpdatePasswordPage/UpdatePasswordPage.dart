@@ -16,7 +16,7 @@ class UpdatePasswordPage extends StatelessWidget {
     if (form.validate()) {
       form.save();
 
-      var res = await new API().updatePassword(_oldPassword, _password);
+      var res = await api.updatePassword(_oldPassword, _password);
 
       await showDialog(
           context: _context,
