@@ -1,18 +1,28 @@
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SignupForm extends StatelessWidget {
+class SignupForm extends StatefulWidget {
+  VoidCallback onSignupOk;
+
+  SignupForm({@required this.onSignupOk});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SignupForm();
+  }
+}
+
+class _SignupForm extends State<SignupForm> {
   final formKey = GlobalKey<FormState>();
 
   var _context;
-  VoidCallback onSignupOk;
   String _username;
   String _password;
   String _passwordAgain;
   String _nickname;
-
-  SignupForm({@required this.onSignupOk});
+  bool _checkbox = true;
 
   void _submit() async {
     final form = formKey.currentState;
@@ -24,7 +34,7 @@ class SignupForm extends StatelessWidget {
 
       if (res['status'] == 200) {
         Utils.showToast(context: _context, text: '注册成功 ━(*｀∀´*)ノ亻!');
-        onSignupOk();
+        widget.onSignupOk();
         form.reset();
       } else {
         Utils.showToast(context: _context, text: res['message']);
@@ -106,6 +116,32 @@ class SignupForm extends StatelessWidget {
                 },
                 decoration:
                     InputDecoration(labelText: "确认密码", hintText: "请再次输入密码"),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text('我同意'),
+                  Container(
+                    child: Checkbox(
+                      value: _checkbox,
+                      onChanged: (value) {
+                        setState(() {
+                          _checkbox = value;
+                        });
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      launch('https://acgdesu.com/userAgreement',
+                          forceSafariVC: false);
+                    },
+                    child: Text(
+                      '用户协议和隐私协议',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               ),
               RaisedButton(
                 child: Text('注册'),

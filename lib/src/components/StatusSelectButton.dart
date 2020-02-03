@@ -96,7 +96,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
     if (res['status'] == 200) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
       _updateLocalStatus(statusText);
-    } else if (res['status'] == 204) {
+    } else {
       _updateLocalStatus(converStatusToText('none'));
     }
   }
