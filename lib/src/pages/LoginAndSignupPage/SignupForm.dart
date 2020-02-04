@@ -26,6 +26,12 @@ class _SignupForm extends State<SignupForm> {
 
   void _submit() async {
     final form = formKey.currentState;
+
+    if (!_checkbox) {
+      Utils.showToast(context: _context, text: '需要同意用户协议和隐私协议');
+      return;
+    }
+
     if (form.validate()) {
       form.save();
 

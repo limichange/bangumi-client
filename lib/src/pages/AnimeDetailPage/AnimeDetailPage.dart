@@ -73,6 +73,22 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
     );
   }
 
+  previewImageList() {
+    return Container(
+//      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: episodes.map((episode) {
+          return Container(
+            padding: const EdgeInsets.only(right: 8.0),
+            width: 200,
+            height: 120,
+            child: NormalImage(url: episode.cover),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,6 +192,14 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                          child: previewImageList(),
                         ),
                       ),
                       SingleChildScrollView(

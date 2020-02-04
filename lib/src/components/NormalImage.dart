@@ -11,10 +11,14 @@ class NormalImage extends StatelessWidget {
 
     return CachedNetworkImage(
       key: ValueKey(url),
-      placeholder: (context, url) =>
-          Image(image: AssetImage('assets/images/placeholder.jpg')),
-      errorWidget: (context, url, error) =>
-          Image(image: AssetImage('assets/images/placeholder-work.jpg')),
+      placeholder: (context, url) => Image(
+          image: AssetImage('assets/images/placeholder.jpg'),
+          fit: BoxFit.cover),
+      errorWidget: (context, url, error) => Image(
+          image: AssetImage(
+            'assets/images/placeholder-work.jpg',
+          ),
+          fit: BoxFit.cover),
       imageUrl: url,
       fit: BoxFit.cover,
     );
