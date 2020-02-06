@@ -1,7 +1,5 @@
 import 'package:bangumi/src/pages/ContactPage/WechatContact.dart';
-import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatefulWidget {

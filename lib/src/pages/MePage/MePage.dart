@@ -1,10 +1,10 @@
 import 'package:bangumi/src/components/MenuItem.dart';
+import 'package:bangumi/src/pages/AccountPage/AccountPage.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/ContactPage/ContactPage.dart';
 import 'package:bangumi/src/pages/FeedbackPage/FeedbackPage.dart';
-import 'package:bangumi/src/pages/MePage/LogoutButton.dart';
 import 'package:bangumi/src/pages/UpdateLogPage/UpdateLogPage.dart';
 import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
@@ -78,17 +78,15 @@ class _MePage extends State<MePage> {
     var hasTokenWidget = Column(
       children: <Widget>[
         Container(
-          alignment: Alignment.center,
-          child: RaisedButton(
-            onPressed: () {
-              Utils.go(context, UpdatePasswordPage());
+          margin: EdgeInsets.only(top: 1),
+          child: GestureDetector(
+            onTap: () {
+              Utils.go(context, AccountPage());
             },
-            child: Text('更新密码'),
+            child: MenuItem(
+              text: '账户设置',
+            ),
           ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: LogoutButton(),
         ),
       ],
     );
