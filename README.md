@@ -27,4 +27,7 @@ flutter build apk
 
 https://blog.csdn.net/SCHOLAR_II/article/details/80684896
 
-https://dev.mi.com/myitems/0/0?userId=406064860
+小米安卓商店 https://dev.mi.com/myitems/0/0?userId=406064860
+
+
+ios预审 https://wetest.qq.com/

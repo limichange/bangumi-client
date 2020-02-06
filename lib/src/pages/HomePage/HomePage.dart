@@ -1,6 +1,7 @@
 import 'package:bangumi/src/api/API.dart';
-import 'package:bangumi/src/pages/HomePage/AnimeListItem.dart';
+import 'package:bangumi/src/components/AnimeListItem.dart';
 import 'package:bangumi/src/model/Anime.dart';
+import 'package:bangumi/src/pages/SearchPage/SearchPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
@@ -50,20 +51,7 @@ class _HomePage extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   search(string) async {
-    print(string);
-    List<Anime> list = new List<Anime>();
-
-    var res = await api.searchAnime(string, 1);
-
-    print(res['data']['rows']);
-
-    res['data']['rows'].forEach((e) {
-      list.add(Anime.fromJson(e));
-    });
-
-    setState(() {
-      _list = list;
-    });
+    Utils.go(context, SearchPage(searchStr: string));
   }
 
   createList() {

@@ -2,6 +2,7 @@ import 'package:bangumi/src/eventBus/UpdateMyLogListEvent.dart';
 import 'package:bangumi/src/eventBus/eventBus.dart';
 import 'package:bangumi/src/pages/HomePage/HomePage.dart';
 import 'package:bangumi/src/pages/MePage/MePage.dart';
+import 'package:bangumi/src/pages/NewAnimeListPage/NewAnimeListPage.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MyLogPage/MyLogPage.dart';
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       Provider.of<GlobalData>(context, listen: false).updatePageIndex(index);
 
-      if (index == 1) {
+      if (index == 2) {
         eventBus.fire(UpdateMyLogListEvent());
       }
     });
@@ -45,22 +46,33 @@ class _MyHomePageState extends State<MyHomePage> {
     var globalData = Provider.of<GlobalData>(context);
 
     return Scaffold(
-      body: IndexedStack(
-          children: <Widget>[homePage, myLogPage, mePage],
-          index: globalData.pageIndex),
+      body: IndexedStack(children: <Widget>[
+        homePage,
+        NewAnimeListPage(),
+        myLogPage,
+        mePage,
+      ], index: globalData.pageIndex),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: globalData.pageIndex,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
             title: new Text('首页'),
           ),
           BottomNavigationBarItem(
+            icon: new Icon(Icons.today),
+            title: new Text('新番'),
+          ),
+          BottomNavigationBarItem(
             icon: new Icon(Icons.bookmark),
             title: new Text('仓库'),
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我的'))
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.person),
+            title: new Text('我的'),
+          )
         ],
       ),
     );
