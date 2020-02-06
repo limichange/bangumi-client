@@ -52,10 +52,19 @@ class _LoginAndSignupPage extends State<LoginAndSignupPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          LoginForm(),
-          SignupForm(
-            onSignupOk: onSignupOk,
-          )
+          SingleChildScrollView(
+            child: Container(
+              height: 400,
+              child: LoginForm(),
+            ),
+          ),
+          SingleChildScrollView(
+            child: Container(
+                height: 500,
+                child: SignupForm(
+                  onSignupOk: onSignupOk,
+                )),
+          ),
         ],
       ),
     );
