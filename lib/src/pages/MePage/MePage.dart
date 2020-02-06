@@ -1,3 +1,4 @@
+import 'package:bangumi/src/components/MenuItem.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/components/LoginButton.dart';
@@ -98,28 +99,36 @@ class _MePage extends State<MePage> {
             padding: EdgeInsets.all(30), child: Text(globalData.nickname)),
         globalData.token == '' ? noTokenWidget : hasTokenWidget,
         Container(
-          alignment: Alignment.center,
-          child: RaisedButton(
-            onPressed: () {
+          margin: EdgeInsets.only(top: 1),
+          child: GestureDetector(
+            onTap: () {
               Utils.go(context, UpdateLogPage());
             },
-            child: Text('更新日志'),
+            child: MenuItem(
+              text: '更新日志',
+            ),
           ),
         ),
         Container(
-          child: RaisedButton(
-            onPressed: () {
+          margin: EdgeInsets.only(top: 1),
+          child: GestureDetector(
+            onTap: () {
               Utils.go(context, ContactPage());
             },
-            child: Text('联系我们'),
+            child: MenuItem(
+              text: '联系我们',
+            ),
           ),
         ),
         Container(
-          child: RaisedButton(
-            onPressed: () {
+          margin: EdgeInsets.only(top: 1),
+          child: GestureDetector(
+            onTap: () {
               Utils.go(context, FeedbackPage());
             },
-            child: Text('建议反馈'),
+            child: MenuItem(
+              text: '建议反馈',
+            ),
           ),
         ),
         Container(
@@ -130,11 +139,15 @@ class _MePage extends State<MePage> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("我的"),
-        ),
-        body: body);
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text("我的"),
+      ),
+      body: Container(
+        color: Color.fromRGBO(0, 0, 0, 0.04),
+        child: body,
+      ),
+    );
   }
 }
