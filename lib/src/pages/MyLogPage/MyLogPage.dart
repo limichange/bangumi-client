@@ -14,73 +14,72 @@ class MyLogPage extends StatefulWidget {
 
 class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
   var data;
-  TabController _tabController;
-  num _index = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tabController = new TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     var globalData = Provider.of<GlobalData>(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          key: GlobalKey(),
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("我的收藏"),
-          bottom: TabBar(
-            onTap: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            controller: _tabController,
-            tabs: [
-              Tab(
-                text: "正在看",
-              ),
-              Tab(
-                text: "计划看",
-              ),
-              Tab(
-                text: "已看完",
-              ),
-            ],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          key: PageStorageKey('LogListScaffold'),
+          appBar: AppBar(
+            key: GlobalKey(),
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text("我的收藏"),
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  text: "正在看",
+                ),
+                Tab(
+                  text: "计划看",
+                ),
+                Tab(
+                  text: "已看完",
+                ),
+              ],
+            ),
           ),
-        ),
-        body: Container(
-          child: !globalData.isLogin
-              ? Container(
-                  padding: EdgeInsets.all(30.0),
-                  alignment: Alignment.center,
-                  child: LoginButton(),
-                )
-              : IndexedStack(children: <Widget>[
-                  LogList(
-                    status: 'doing',
-                    key: ObjectKey('LogListDoing'),
-                  ),
-                  LogList(
-                    status: 'todo',
-                    key: ObjectKey('LogListTodo'),
-                  ),
-                  LogList(
-                    status: 'done',
-                    key: ObjectKey('LogListDone'),
-                  ),
-                ], index: _index),
-        ));
+          body: Container(
+            key: ValueKey('test'),
+            child: !globalData.isLogin
+                ? Container(
+                    padding: EdgeInsets.all(30.0),
+                    alignment: Alignment.center,
+                    child: LoginButton(),
+                  )
+                : TabBarView(
+                    key: PageStorageKey('LogListTabBarView'),
+                    children: <Widget>[
+                        IndexedStack(
+                          key: ValueKey('doing'),
+                          children: <Widget>[
+                            LogList(
+                              status: 'doing',
+                            ),
+                          ],
+                        ),
+                        IndexedStack(
+                          key: ValueKey('LogListTodo'),
+                          children: <Widget>[
+                            LogList(
+                              key: new PageStorageKey('LogListTodo'),
+                              status: 'todo',
+                            )
+                          ],
+                        ),
+                        IndexedStack(
+                            key: ValueKey('LogListDone'),
+                            children: <Widget>[
+                              LogList(
+                                key: new PageStorageKey('LogListDone'),
+                                status: 'done',
+                              )
+                            ]),
+                      ]),
+          )),
+    );
   }
 }

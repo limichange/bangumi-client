@@ -16,11 +16,14 @@ class LogList extends StatefulWidget {
 
   @override
   _LogList createState() {
-    return _LogList(status: status);
+    return _LogList();
   }
 }
 
-class _LogList extends State<LogList> {
+class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   var data;
   List _list = [];
   num total;
@@ -28,16 +31,15 @@ class _LogList extends State<LogList> {
   bool _isLoading = false;
   String _loadType = '';
   num _lastPage = 1;
-  String status;
   StreamSubscription _eventSub;
-
-  _LogList({this.status});
 
   @override
   initState() {
     super.initState();
 
     reload();
+
+    print('init log list' + widget.status);
 
     _eventSub = eventBus.on<UpdateMyLogListEvent>().listen((event) {
       reload();
@@ -56,8 +58,6 @@ class _LogList extends State<LogList> {
     });
 
     var res = await api.myAnimeLog(widget.status, _page + 1);
-
-    print(res);
 
     if (!mounted) return;
 
@@ -93,6 +93,7 @@ class _LogList extends State<LogList> {
     setState(() {
       _loadType = 'reload';
       _page = 0;
+      _lastPage = 1;
     });
 
     var res = await loadData();
@@ -132,50 +133,58 @@ class _LogList extends State<LogList> {
     );
   }
 
-  List<Container> _buildGridTileList() => _list.map((i) {
-        var width = MediaQuery.of(context).size.width * 0.3;
+  List<Container> _buildGridTileList() {
+    print(_list.length);
+    var res = _list.map((i) {
+      var width = MediaQuery.of(context).size.width * 0.3;
 
-        return Container(
-          width: width,
-          margin:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
-          padding: EdgeInsets.only(top: 10),
-          child: GestureDetector(
-            onTap: () {
-              Utils.goAnimeDetail(context, i.uuid);
-            },
-            child: Column(children: <Widget>[
-              Container(
-                  height: width * 1.45,
-                  width: width,
-                  child: NormalImage(
-                    url: i.cover,
-                    key: ValueKey(i.cover),
-                  )),
-              Container(
-                  width: width,
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text(i.name,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      )))
-            ]),
-          ),
-        );
-      }).toList();
+      return Container(
+        width: width,
+        margin:
+            EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
+        padding: EdgeInsets.only(top: 10),
+        child: GestureDetector(
+          onTap: () {
+            Utils.goAnimeDetail(context, i.uuid);
+          },
+          child: Column(children: <Widget>[
+            Container(
+                height: width * 1.45,
+                width: width,
+                child: NormalImage(
+                  url: i.cover,
+                  key: ValueKey(i.cover),
+                )),
+            Container(
+                width: width,
+                padding: EdgeInsets.only(top: 4),
+                child: Text(i.name,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    )))
+          ]),
+        ),
+      );
+    }).toList();
+
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
     return Stack(
+      key: ValueKey(widget.status),
       children: <Widget>[
         Container(
+          key: ValueKey(widget.status),
           child: NotificationListener<ScrollNotification>(
+            key: ValueKey(widget.status),
             onNotification: (ScrollNotification scrollInfo) {
               if (!_isLoading &&
                   scrollInfo.metrics.pixels ==
@@ -186,15 +195,15 @@ class _LogList extends State<LogList> {
               return true;
             },
             child: RefreshIndicator(
+              key: ValueKey(widget.status),
               onRefresh: reload,
               child: ListView(
-                key: PageStorageKey(status),
+                key: ValueKey(widget.status),
+//                key: PageStorageKey(status),
                 children: <Widget>[
-                  Container(
-                    width: width,
-                    child: Wrap(
-                      children: _buildGridTileList(),
-                    ),
+                  Wrap(
+                    key: ValueKey(widget.status),
+                    children: _buildGridTileList(),
                   ),
                   Container(
                     height: 100,

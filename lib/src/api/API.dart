@@ -62,6 +62,7 @@ class API {
     }
   }
 
+  Future getNewAnimeList() => get('/newAnime/page');
   Future appVersion() => get('/app/version');
   Future appUpdateLog() => get('/app/updateLog');
   Future addFeedback(String content, String type, String animeUuid) => post(
