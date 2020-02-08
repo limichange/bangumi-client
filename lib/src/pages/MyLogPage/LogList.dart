@@ -133,48 +133,6 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  List<Container> _buildGridTileList() {
-    print(_list.length);
-    var res = _list.map((i) {
-      var width = MediaQuery.of(context).size.width * 0.3;
-
-      return Container(
-        width: width,
-        key: ObjectKey(i),
-        margin:
-            EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
-        padding: EdgeInsets.only(top: 10),
-        child: GestureDetector(
-          onTap: () {
-            Utils.goAnimeDetail(context, i.uuid);
-          },
-          child: Column(children: <Widget>[
-            Container(
-                height: width * 1.45,
-                width: width,
-                child: NormalImage(
-                  url: i.cover,
-                  key: ValueKey(i.cover),
-                )),
-            Container(
-                width: width,
-                padding: EdgeInsets.only(top: 4),
-                child: Text(i.name,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    )))
-          ]),
-        ),
-      );
-    }).toList();
-
-    return res;
-  }
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -198,23 +156,67 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
             child: RefreshIndicator(
               key: ValueKey(widget.status),
               onRefresh: reload,
-              child: ListView(
-                key: ValueKey(widget.status),
-                children: <Widget>[
-                  Wrap(
-                    key: ValueKey(widget.status),
-                    children: _buildGridTileList(),
-                  ),
-                  Container(
-                    height: 100,
-                    child: Center(
-                      child: _isLoading && _loadType == 'loadmore'
-                          ? CircularProgressIndicator()
-                          : Container(),
-                    ),
-                  )
-                ],
-              ),
+              child: GridView.builder(
+                  padding: EdgeInsets.only(
+                      left: width * 0.0084, right: width * 0.0084),
+                  itemCount: _list.length,
+                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio:
+                          (width * (0.3 + 0.01) / (width * 0.3 * 1.45 + 20)),
+                      crossAxisCount: 3),
+                  itemBuilder: (BuildContext context, int index) {
+                    var i = _list[index];
+
+                    return Container(
+                      key: ObjectKey(i),
+                      padding: EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Utils.goAnimeDetail(context, i.uuid);
+                        },
+                        child: Column(children: <Widget>[
+                          Container(
+                              height: width * 0.3 * 1.45,
+                              width: width * 0.3,
+                              child: NormalImage(
+                                url: i.cover,
+                                key: ValueKey(i.cover),
+                              )),
+                          Container(
+                              color: Colors.black12,
+                              width: width * 0.3,
+                              height: 20,
+                              child: Text(i.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  )))
+                        ]),
+                      ),
+                    );
+                  }),
+//              child: ListView(
+//                key: ValueKey(widget.status),
+//                children: <Widget>[
+//                  Wrap(
+//                    key: ValueKey(widget.status),
+//                    children: _buildGridTileList(),
+//                  ),
+//                  Container(
+//                    height: 100,
+//                    child: Center(
+//                      child: _isLoading && _loadType == 'loadmore'
+//                          ? CircularProgressIndicator()
+//                          : Container(),
+//                    ),
+//                  )
+//                ],
+//              ),
             ),
           ),
         ),
