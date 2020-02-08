@@ -159,12 +159,22 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
               child: GridView.builder(
                   padding: EdgeInsets.only(
                       left: width * 0.0084, right: width * 0.0084),
-                  itemCount: _list.length,
+                  itemCount: _list.length + 1,
                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio:
                           (width * (0.3 + 0.01) / (width * 0.3 * 1.45 + 20)),
                       crossAxisCount: 3),
                   itemBuilder: (BuildContext context, int index) {
+                    if (index == _list.length) {
+                      return Container(
+                          height: 100,
+                          child: Center(
+                            child: _isLoading && _loadType == 'loadmore'
+                                ? CircularProgressIndicator()
+                                : Container(),
+                          ));
+                    }
+
                     var i = _list[index];
 
                     return Container(
@@ -185,7 +195,6 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
                                 key: ValueKey(i.cover),
                               )),
                           Container(
-                              color: Colors.black12,
                               width: width * 0.3,
                               height: 20,
                               child: Text(i.name,
