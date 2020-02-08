@@ -48,7 +48,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
     }
   }
 
-  loadData() async {
+  Future loadData() async {
     var res = await api.AnimeDetail(widget.uuid);
     Anime anime;
 
@@ -103,120 +103,123 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
               child: Center(
                 child: CircularProgressIndicator(),
               ))
-          : SingleChildScrollView(
-              child: Column(children: <Widget>[
-                Container(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 160,
-                        width: double.infinity,
-                        child: NormalImage(url: _anime.cover),
-                      ),
-                      Positioned.fill(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 3,
-                            sigmaY: 3,
+          : RefreshIndicator(
+              onRefresh: loadData,
+              child: SingleChildScrollView(
+                child: Column(children: <Widget>[
+                  Container(
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 160,
+                          width: double.infinity,
+                          child: NormalImage(url: _anime.cover),
+                        ),
+                        Positioned.fill(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 3,
+                              sigmaY: 3,
+                            ),
+                            child: Container(
+                              color: Colors.white10,
+                            ),
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    transform: Matrix4.translationValues(0.0, -80.0, 0.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(12),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(right: 12),
+                                child: Center(
+                                  child: Container(
+                                    width: 160,
+                                    height: 200,
+                                    child: NormalImage(url: _anime.cover),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: StatusSelectButton(
+                                    key: UniqueKey(), uuid: widget.uuid),
+                              ),
+                              Container(
+                                width: 58,
+                                padding: EdgeInsets.only(left: 8),
+                                child: RaisedButton(
+                                  onPressed: () {
+                                    Utils.go(
+                                        context,
+                                        FeedbackPage(
+                                          anime: _anime,
+                                        ));
+                                  },
+                                  child: Icon(
+                                    Icons.feedback,
+                                    size: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(left: 12, right: 12),
+                          child: Text(
+                            _anime.name,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Text(
+                                  _anime.desc,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
                           child: Container(
-                            color: Colors.white10,
+                            padding:
+                                EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                            child: previewImageList(),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  transform: Matrix4.translationValues(0.0, -80.0, 0.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(right: 12),
-                              child: Center(
-                                child: Container(
-                                  width: 160,
-                                  height: 200,
-                                  child: NormalImage(url: _anime.cover),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: StatusSelectButton(
-                                  key: UniqueKey(), uuid: widget.uuid),
-                            ),
-                            Container(
-                              width: 58,
-                              padding: EdgeInsets.only(left: 8),
-                              child: RaisedButton(
-                                onPressed: () {
-                                  Utils.go(
-                                      context,
-                                      FeedbackPage(
-                                        anime: _anime,
-                                      ));
-                                },
-                                child: Icon(
-                                  Icons.feedback,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(left: 12, right: 12),
-                        child: Text(
-                          _anime.name,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                            child: episodesList(),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Text(
-                                _anime.desc,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                          child: previewImageList(),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                          child: episodesList(),
-                        ),
-                      ),
-                      Container(
-                        margin: new EdgeInsets.only(top: 100),
-                      )
-                    ],
+                        Container(
+                          margin: new EdgeInsets.only(top: 100),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ]),
+                ]),
+              ),
             ),
     );
   }

@@ -10,8 +10,8 @@ class API {
   Dio dio = new Dio(new BaseOptions(
 //    baseUrl: "http://0.0.0.0:8080/api",
     baseUrl: "https://acgdesu.com/api",
-    connectTimeout: 5000,
-    receiveTimeout: 3000,
+    connectTimeout: 10000,
+    receiveTimeout: 10000,
   ));
 
   var badMessage = {'status': 400, 'message': '服务器有点忙'};
