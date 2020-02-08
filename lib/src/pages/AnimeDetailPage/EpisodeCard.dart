@@ -19,7 +19,7 @@ class _EpisodeCard extends State<EpisodeCard> {
     _settingModalBottomSheet();
   }
 
-  bool isRead = false;
+  bool _isRead = false;
 
   void _settingModalBottomSheet() {
     showModalBottomSheet(
@@ -28,7 +28,15 @@ class _EpisodeCard extends State<EpisodeCard> {
           return Container(
             child: new Wrap(
               children: <Widget>[
-                new ListTile(title: new Text('标记为已看完'), onTap: () {}),
+                new ListTile(
+                    title: new Text('标记为已看完'),
+                    onTap: () {
+                      setState(() {
+                        _isRead = true;
+                      });
+
+                      Navigator.pop(context);
+                    }),
                 new ListTile(
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,10 +79,10 @@ class _EpisodeCard extends State<EpisodeCard> {
             margin: EdgeInsets.only(right: 10),
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: isRead ? Color.fromRGBO(235, 123, 153, .9) : Colors.white,
+              color: _isRead ? Color.fromRGBO(235, 123, 153, .9) : Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5)),
               border: Border.all(
-                  color: isRead ? Colors.white : Colors.black12,
+                  color: _isRead ? Colors.white : Colors.black12,
                   width: 1,
                   style: BorderStyle.solid),
             ),
@@ -88,7 +96,7 @@ class _EpisodeCard extends State<EpisodeCard> {
                         ? ' '
                         : '第' + widget.episode.title + '话',
                     style: TextStyle(
-                      color: isRead ? Colors.white : Colors.black,
+                      color: _isRead ? Colors.white : Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     )),
@@ -102,7 +110,7 @@ class _EpisodeCard extends State<EpisodeCard> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isRead ? Colors.white : Colors.black38,
+                      color: _isRead ? Colors.white : Colors.black38,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
