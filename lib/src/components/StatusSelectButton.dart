@@ -40,7 +40,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
     } else if (status == 'done') {
       statusText = '已看完';
     } else {
-      statusText = '加入我的收藏';
+      statusText = '加入收藏';
     }
 
     return statusText;
