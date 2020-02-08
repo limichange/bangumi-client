@@ -53,31 +53,17 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
                 : TabBarView(
                     key: PageStorageKey('LogListTabBarView'),
                     children: <Widget>[
-                        IndexedStack(
-                          key: ValueKey('doing'),
-                          children: <Widget>[
-                            LogList(
-                              status: 'doing',
-                            ),
-                          ],
+                        LogList(
+                          status: 'doing',
                         ),
-                        IndexedStack(
-                          key: ValueKey('LogListTodo'),
-                          children: <Widget>[
-                            LogList(
-                              key: new PageStorageKey('LogListTodo'),
-                              status: 'todo',
-                            )
-                          ],
+                        LogList(
+                          key: new PageStorageKey('LogListTodo'),
+                          status: 'todo',
                         ),
-                        IndexedStack(
-                            key: ValueKey('LogListDone'),
-                            children: <Widget>[
-                              LogList(
-                                key: new PageStorageKey('LogListDone'),
-                                status: 'done',
-                              )
-                            ]),
+                        LogList(
+                          key: new PageStorageKey('LogListDone'),
+                          status: 'done',
+                        ),
                       ]),
           )),
     );

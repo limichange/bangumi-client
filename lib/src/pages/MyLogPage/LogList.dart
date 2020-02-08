@@ -140,6 +140,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
 
       return Container(
         width: width,
+        key: ObjectKey(i),
         margin:
             EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.025),
         padding: EdgeInsets.only(top: 10),
@@ -199,7 +200,6 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
               onRefresh: reload,
               child: ListView(
                 key: ValueKey(widget.status),
-//                key: PageStorageKey(status),
                 children: <Widget>[
                   Wrap(
                     key: ValueKey(widget.status),
