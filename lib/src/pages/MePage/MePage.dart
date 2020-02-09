@@ -6,7 +6,6 @@ import 'package:bangumi/src/components/LoginButton.dart';
 import 'package:bangumi/src/pages/ContactPage/ContactPage.dart';
 import 'package:bangumi/src/pages/FeedbackPage/FeedbackPage.dart';
 import 'package:bangumi/src/pages/UpdateLogPage/UpdateLogPage.dart';
-import 'package:bangumi/src/pages/UpdatePasswordPage/UpdatePasswordPage.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
@@ -37,16 +36,15 @@ class _MePage extends State<MePage> {
   loadVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
 
     setState(() {
-      versionStr = '当前版本 v' + version + '(' + buildNumber + ')';
+      versionStr = '当前 v' + version;
     });
 
     var serverAppVersionRes = await api.appVersion();
 
     if (serverAppVersionRes['status'] == 200) {
-      versionStr += ' 最新版本 v' + serverAppVersionRes['data'];
+      versionStr += ' 最新 v' + serverAppVersionRes['data'];
     }
   }
 
