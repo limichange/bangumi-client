@@ -33,6 +33,7 @@ dependencies:
   url_launcher:
   package_info:
   event_bus:
+  jpush_flutter:
 
 dev_dependencies:
   flutter_test:

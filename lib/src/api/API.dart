@@ -5,8 +5,8 @@ API api = API();
 
 class API {
   Dio dio = new Dio(new BaseOptions(
-    baseUrl: "http://0.0.0.0:8080/api",
-//    baseUrl: "https://acgdesu.com/api",
+//    baseUrl: "http://0.0.0.0:8080/api",
+    baseUrl: "https://acgdesu.com/api",
     connectTimeout: 10000,
     receiveTimeout: 10000,
   ));

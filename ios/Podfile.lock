@@ -3,6 +3,12 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - JCore (2.2.0)
+  - JPush (3.2.8):
+    - JCore (< 3.0.0, >= 2.0.0)
+  - jpush_flutter (0.0.2):
+    - Flutter
+    - JPush
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -25,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -38,10 +45,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
+    - JCore
+    - JPush
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  jpush_flutter:
+    :path: ".symlinks/plugins/jpush_flutter/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
   path_provider:
@@ -64,6 +75,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  JCore: dd8877f3adea559b60afdb0c77a8fa771c03b649
+  JPush: 8ce888d6dedfa417e90c8b6bc87405a16ce2e699
+  jpush_flutter: d7e3a79466eb9447fd940233f02661b514f137c6
   package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
