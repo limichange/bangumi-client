@@ -123,10 +123,13 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                   Container(
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          height: 160,
-                          width: double.infinity,
-                          child: NormalImage(url: _anime.cover),
+                        Opacity(
+                          opacity: .6,
+                          child: Container(
+                            height: 140,
+                            width: double.infinity,
+                            child: NormalImage(url: _anime.cover),
+                          ),
                         ),
                         Positioned.fill(
                           child: BackdropFilter(
@@ -155,7 +158,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                                 child: Center(
                                   child: Container(
                                     width: 160,
-                                    height: 200,
+                                    height: 220,
                                     child: NormalImage(url: _anime.cover),
                                   ),
                                 ),
