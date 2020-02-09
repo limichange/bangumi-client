@@ -1,5 +1,5 @@
+import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/model/Episode.dart';
-import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,7 +19,19 @@ class _EpisodeCard extends State<EpisodeCard> {
     _settingModalBottomSheet();
   }
 
-  bool _isRead = false;
+  bool _isRead;
+
+  setIsRead(String status) async {
+    var res = await api.saveEpisodeLog(widget.episode.uuid, status);
+
+    print(res);
+
+    if (res['status'] == 200) {
+      setState(() {
+        widget.episode.logStatus = res['data']['status'];
+      });
+    }
+  }
 
   void _settingModalBottomSheet() {
     showModalBottomSheet(
@@ -29,11 +41,9 @@ class _EpisodeCard extends State<EpisodeCard> {
             child: new Wrap(
               children: <Widget>[
                 new ListTile(
-                    title: new Text('标记为已看完'),
+                    title: new Text(_isRead ? '标记为未看' : '标记为已看完'),
                     onTap: () {
-                      setState(() {
-                        _isRead = true;
-                      });
+                      setIsRead(_isRead ? 'none' : 'done');
 
                       Navigator.pop(context);
                     }),
@@ -41,17 +51,17 @@ class _EpisodeCard extends State<EpisodeCard> {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        new Text('打开B站'),
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Checkbox(
-                                value: true,
-                              ),
-                              Text('表为已看完')
-                            ],
-                          ),
-                        )
+                        Text('打开B站'),
+//                        Container(
+//                          child: Row(
+//                            children: <Widget>[
+//                              Checkbox(
+//                                value: true,
+//                              ),
+//                              Text('表为已看完')
+//                            ],
+//                          ),
+//                        )
                       ],
                     ),
                     onTap: () async {
@@ -61,6 +71,7 @@ class _EpisodeCard extends State<EpisodeCard> {
                         await launch(url, forceSafariVC: false);
                       }
                     }),
+                new ListTile()
               ],
             ),
           );
@@ -69,6 +80,8 @@ class _EpisodeCard extends State<EpisodeCard> {
 
   @override
   Widget build(BuildContext context) {
+    _isRead = widget.episode.logStatus == 'done';
+
     return GestureDetector(
       onTap: onTap,
       child: Stack(

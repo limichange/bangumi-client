@@ -5,6 +5,8 @@ class Episode {
   var uuid = '';
   var biliUrl = '';
 
+  var logStatus = '';
+
   Episode({this.uuid, this.title, this.cover, this.longTitle, this.biliUrl});
 
   factory Episode.fromJson(Map<String, dynamic> json) {

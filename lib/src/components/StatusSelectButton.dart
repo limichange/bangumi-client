@@ -79,6 +79,7 @@ class _StatusSelectButton extends State<StatusSelectButton> {
                       Navigator.pop(context);
                       _changeStatus('doing');
                     }),
+                new ListTile()
               ],
             ),
           );

@@ -5,8 +5,8 @@ API api = API();
 
 class API {
   Dio dio = new Dio(new BaseOptions(
-//    baseUrl: "http://0.0.0.0:8080/api",
-    baseUrl: "https://acgdesu.com/api",
+    baseUrl: "http://0.0.0.0:8080/api",
+//    baseUrl: "https://acgdesu.com/api",
     connectTimeout: 10000,
     receiveTimeout: 10000,
   ));
@@ -61,11 +61,10 @@ class API {
     }
   }
 
-  Future getEpisodeLogsByAnimeId(num animeId) =>
-      get('/episodeLog/getByAnimeId', queryParameters: {'animeId': animeId});
-  Future saveEpisodeLog(num animeId, num episodeId, String status) => post(
-      '/episodeLog/save',
-      {'animeId': animeId, 'episodeId': episodeId, 'status': status});
+  Future getEpisodeLogsByAnime(String uuid) =>
+      get('/episodeLog/getByAnime', queryParameters: {'uuid': uuid});
+  Future saveEpisodeLog(String episodeUUID, String status) =>
+      post('/episodeLog/save', {'episodeUUID': episodeUUID, 'status': status});
   Future getNewAnimeList() => get('/newAnime/page');
   Future appVersion() => get('/app/version');
   Future appUpdateLog() => get('/app/updateLog');

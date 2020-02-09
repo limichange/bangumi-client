@@ -30,16 +30,31 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   void initState() {
     super.initState();
 
-    loadData();
-    loadEpisodes();
+    reload();
+  }
+
+  Future reload() async {
+    await loadData();
+    await loadEpisodes();
   }
 
   loadEpisodes() async {
     var res = await api.getEpisodeByAnime(widget.uuid);
 
+    var res2 = await api.getEpisodeLogsByAnime(widget.uuid);
+
     if (res['status'] == 200) {
       res['data']['episodes'].forEach((item) {
-        episodes.add(Episode.fromJson(item));
+        Episode episode = Episode.fromJson(item);
+
+        res2['data'].forEach((i) {
+          if (item['id'] == i['episodeId']) {
+            print(i['status']);
+            episode.logStatus = i['status'];
+          }
+        });
+
+        episodes.add(episode);
       });
 
       setState(() {
@@ -75,7 +90,6 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
 
   previewImageList() {
     return Container(
-//      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: episodes.map((episode) {
           return Container(
@@ -93,8 +107,6 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text("详情"),
       ),
       body: _isLoading
@@ -104,7 +116,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                 child: CircularProgressIndicator(),
               ))
           : RefreshIndicator(
-              onRefresh: loadData,
+              onRefresh: reload,
               child: SingleChildScrollView(
                 child: Column(children: <Widget>[
                   Container(
@@ -202,6 +214,14 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                             padding:
                                 EdgeInsets.only(left: 10, top: 10, bottom: 10),
                             child: previewImageList(),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 12),
+                          width: double.infinity,
+                          child: Text(
+                            '共' + episodes.length.toString() + '集',
+                            textAlign: TextAlign.start,
                           ),
                         ),
                         SingleChildScrollView(
