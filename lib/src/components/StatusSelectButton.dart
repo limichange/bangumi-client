@@ -39,6 +39,8 @@ class _StatusSelectButton extends State<StatusSelectButton> {
       statusText = '观看中';
     } else if (status == 'done') {
       statusText = '已看完';
+    } else if (status == 'error') {
+      statusText = 'error';
     } else {
       statusText = '加入收藏';
     }
@@ -96,6 +98,8 @@ class _StatusSelectButton extends State<StatusSelectButton> {
     if (res['status'] == 200) {
       String statusText = converStatusToText(res['data']['animeLog']['status']);
       _updateLocalStatus(statusText);
+    } else if (res['status'] == 500) {
+      _updateLocalStatus(converStatusToText('error'));
     } else {
       _updateLocalStatus(converStatusToText('none'));
     }

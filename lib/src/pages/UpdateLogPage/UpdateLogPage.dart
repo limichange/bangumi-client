@@ -20,8 +20,6 @@ class _UpdateLogPage extends State<UpdateLogPage> {
   loadData() async {
     var res = await API().appUpdateLog();
 
-    print(res);
-
     if (res['status'] == 200) {
       print(res['data']['logs']);
       setState(() {

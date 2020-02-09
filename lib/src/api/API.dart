@@ -1,6 +1,3 @@
-import 'package:bangumi/src/model/Anime.dart';
-import 'package:bangumi/src/model/User.dart';
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +11,7 @@ class API {
     receiveTimeout: 10000,
   ));
 
-  var badMessage = {'status': 400, 'message': '服务器有点忙'};
+  var badMessage = {'status': 500, 'message': '服务器有点忙'};
 
   API() {
     autoToken();
@@ -48,6 +45,7 @@ class API {
 
       return response.data;
     } catch (e) {
+      print(e);
       return badMessage;
     }
   }
@@ -58,10 +56,16 @@ class API {
 
       return response.data;
     } catch (e) {
+      print(e);
       return badMessage;
     }
   }
 
+  Future getEpisodeLogsByAnimeId(num animeId) =>
+      get('/episodeLog/getByAnimeId', queryParameters: {'animeId': animeId});
+  Future saveEpisodeLog(num animeId, num episodeId, String status) => post(
+      '/episodeLog/save',
+      {'animeId': animeId, 'episodeId': episodeId, 'status': status});
   Future getNewAnimeList() => get('/newAnime/page');
   Future appVersion() => get('/app/version');
   Future appUpdateLog() => get('/app/updateLog');
