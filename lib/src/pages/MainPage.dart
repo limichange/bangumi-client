@@ -76,19 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
     jpush.getRegistrationID().then((rid) {
       print(rid);
     });
-
-    var fireDate = DateTime.fromMillisecondsSinceEpoch(
-        DateTime.now().millisecondsSinceEpoch + 3000);
-    var localNotification = LocalNotification(
-        id: 000001,
-        title: 'Local Push 本地标题',
-        buildId: 1,
-        content: 'Local Push 本地内容',
-        fireTime: fireDate,
-        extra: {"extra_key": "extra_value"});
-    jpush.sendLocalNotification(localNotification).then((res) {});
-
-    print(jpush);
   }
 
   @override
