@@ -77,7 +77,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   JCore: dd8877f3adea559b60afdb0c77a8fa771c03b649
   JPush: 8ce888d6dedfa417e90c8b6bc87405a16ce2e699
-  jpush_flutter: d7e3a79466eb9447fd940233f02661b514f137c6
+  jpush_flutter: 69133df35eaf9135e540549b154d992c44f8ee44
   package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01

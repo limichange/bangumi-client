@@ -15,34 +15,6 @@ void main() async {
   } catch (error, stackTrace) {
     reportError(error, stackTrace);
   }
-
-  JPush jpush = new JPush();
-
-  jpush.addEventHandler(
-    // 接收通知回调方法。
-    onReceiveNotification: (Map<String, dynamic> message) async {
-      print("flutter onReceiveNotification: $message");
-    },
-    // 点击通知回调方法。
-    onOpenNotification: (Map<String, dynamic> message) async {
-      print("flutter onOpenNotification: $message");
-    },
-    // 接收自定义消息回调方法。
-    onReceiveMessage: (Map<String, dynamic> message) async {
-      print("flutter onReceiveMessage: $message");
-    },
-  );
-
-  jpush.setup(
-    appKey: "37aa445df9565c858ab3e9ab",
-    channel: "mainChannel",
-    production: false,
-    debug: true, // 设置是否打印 debug 日志
-  );
-
-  jpush.getRegistrationID().then((rid) {
-    print(rid);
-  });
 }
 
 class MyApp extends StatelessWidget {

@@ -34,6 +34,9 @@ dependencies:
   package_info:
   event_bus:
   jpush_flutter:
+    git:
+      url: git://github.com/jpush/jpush-flutter-plugin.git
+      ref: master
 
 dev_dependencies:
   flutter_test:

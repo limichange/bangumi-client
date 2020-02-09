@@ -138,10 +138,12 @@ packages:
   jpush_flutter:
     dependency: "direct main"
     description:
-      name: jpush_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0"
+      path: "."
+      ref: master
+      resolved-ref: c9c135979fdc0561a606cded3b5f38b89d543fcd
+      url: "git://github.com/jpush/jpush-flutter-plugin.git"
+    source: git
+    version: "0.5.2"
   matcher:
     dependency: transitive
     description:

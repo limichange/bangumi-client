@@ -6,6 +6,7 @@ import 'package:bangumi/src/pages/NewAnimeListPage/NewAnimeListPage.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MyLogPage/MyLogPage.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -39,6 +40,55 @@ class _MyHomePageState extends State<MyHomePage> {
         eventBus.fire(UpdateMyLogListEvent());
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    JPush jpush = new JPush();
+
+    jpush.addEventHandler(
+      // 接收通知回调方法。
+      onReceiveNotification: (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotification: $message");
+      },
+      // 点击通知回调方法。
+      onOpenNotification: (Map<String, dynamic> message) async {
+        print("flutter onOpenNotification: $message");
+      },
+      // 接收自定义消息回调方法。
+      onReceiveMessage: (Map<String, dynamic> message) async {
+        print("flutter onReceiveMessage: $message");
+      },
+    );
+
+    jpush.setup(
+      appKey: "37aa445df9565c858ab3e9ab",
+      channel: "mainChannel",
+      production: false,
+      debug: true, // 设置是否打印 debug 日志
+    );
+
+    jpush.applyPushAuthority(
+        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
+
+    jpush.getRegistrationID().then((rid) {
+      print(rid);
+    });
+
+    var fireDate = DateTime.fromMillisecondsSinceEpoch(
+        DateTime.now().millisecondsSinceEpoch + 3000);
+    var localNotification = LocalNotification(
+        id: 000001,
+        title: 'Local Push 本地标题',
+        buildId: 1,
+        content: 'Local Push 本地内容',
+        fireTime: fireDate,
+        extra: {"extra_key": "extra_value"});
+    jpush.sendLocalNotification(localNotification).then((res) {});
+
+    print(jpush);
   }
 
   @override
