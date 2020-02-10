@@ -27,19 +27,25 @@ class _MyLogPage extends State<MyLogPage> with SingleTickerProviderStateMixin {
             key: GlobalKey(),
             // Here we take the value from the MyHomePage object that was created by
             // the App.build method, and use it to set our appbar title.
-            title: Text("我的收藏"),
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  text: "正在看",
+//            title: Text("我的收藏"),
+            flexibleSpace: SafeArea(
+              child: Container(
+                width: double.infinity,
+                height: 56,
+                child: TabBar(
+                  tabs: [
+                    Tab(
+                      text: "正在看",
+                    ),
+                    Tab(
+                      text: "计划看",
+                    ),
+                    Tab(
+                      text: "已看完",
+                    ),
+                  ],
                 ),
-                Tab(
-                  text: "计划看",
-                ),
-                Tab(
-                  text: "已看完",
-                ),
-              ],
+              ),
             ),
           ),
           body: Container(

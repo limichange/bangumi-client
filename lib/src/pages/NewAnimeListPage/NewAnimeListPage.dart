@@ -41,32 +41,35 @@ class _NewAnimeListPage extends State<NewAnimeListPage>
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text("新番"),
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(
-                text: "一",
-              ),
-              Tab(
-                text: "二",
-              ),
-              Tab(
-                text: "三",
-              ),
-              Tab(
-                text: "四",
-              ),
-              Tab(
-                text: "五",
-              ),
-              Tab(
-                text: "六",
-              ),
-              Tab(
-                text: "天",
-              ),
-            ],
+//          title: Text("新番"),
+          flexibleSpace: SafeArea(
+            child: Container(
+              width: double.infinity,
+              height: 56,
+              child: TabBar(controller: _tabController, tabs: [
+                Tab(
+                  text: "一",
+                ),
+                Tab(
+                  text: "二",
+                ),
+                Tab(
+                  text: "三",
+                ),
+                Tab(
+                  text: "四",
+                ),
+                Tab(
+                  text: "五",
+                ),
+                Tab(
+                  text: "六",
+                ),
+                Tab(
+                  text: "天",
+                ),
+              ]),
+            ),
           ),
         ),
         body: Container(
