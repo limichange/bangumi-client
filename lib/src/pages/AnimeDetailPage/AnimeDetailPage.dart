@@ -35,6 +35,10 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   }
 
   Future reload() async {
+    setState(() {
+      episodes = [];
+    });
+
     await loadData();
     await loadEpisodes();
   }
@@ -48,12 +52,14 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
       res['data']['episodes'].forEach((item) {
         Episode episode = Episode.fromJson(item);
 
-        res2['data'].forEach((i) {
-          if (item['id'] == i['episodeId']) {
-            print(i['status']);
-            episode.logStatus = i['status'];
-          }
-        });
+        if (res2['status'] == 200) {
+          res2['data'].forEach((i) {
+            if (item['id'] == i['episodeId']) {
+              print(i['status']);
+              episode.logStatus = i['status'];
+            }
+          });
+        }
 
         episodes.add(episode);
       });
@@ -238,15 +244,17 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                             child: previewImageList(),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(left: 12),
-                          width: double.infinity,
-                          child: Text(
-                            '共' + episodes.length.toString() + '集',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
+                        episodes.length > 0
+                            ? Container(
+                                padding: EdgeInsets.only(left: 12),
+                                width: double.infinity,
+                                child: Text(
+                                  '共' + episodes.length.toString() + '集',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              )
+                            : Container(),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Container(
