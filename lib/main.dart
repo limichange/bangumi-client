@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:bangumi/src/pages/MainPage.dart';
 import 'package:bangumi/src/reportError.dart';
 import 'package:provider/provider.dart';
-import 'package:jpush_flutter/jpush_flutter.dart';
 
 void main() async {
   try {

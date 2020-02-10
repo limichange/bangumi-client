@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     jpush.setup(
       appKey: "37aa445df9565c858ab3e9ab",
       channel: "mainChannel",
-      production: false,
+      production: true,
       debug: true, // 设置是否打印 debug 日志
     );
 
