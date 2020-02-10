@@ -32,6 +32,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
   String _loadType = '';
   num _lastPage = 1;
   StreamSubscription _eventSub;
+  ScrollController _controller;
 
   @override
   initState() {
@@ -41,7 +42,10 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
 
     print('init log list' + widget.status);
 
+    _controller = ScrollController();
+
     _eventSub = eventBus.on<UpdateMyLogListEvent>().listen((event) {
+      _controller.jumpTo(0);
       reload();
     });
   }
@@ -146,7 +150,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
             key: ValueKey(widget.status),
             onNotification: (ScrollNotification scrollInfo) {
               if (!_isLoading &&
-                  scrollInfo.metrics.pixels ==
+                  scrollInfo.metrics.pixels + 100 >=
                       scrollInfo.metrics.maxScrollExtent) {
                 loadmore();
               }
@@ -157,6 +161,7 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
               key: ValueKey(widget.status),
               onRefresh: reload,
               child: GridView.builder(
+                  controller: _controller,
                   padding: EdgeInsets.only(
                       left: width * 0.0084, right: width * 0.0084),
                   itemCount: _list.length + 1,
@@ -209,23 +214,6 @@ class _LogList extends State<LogList> with AutomaticKeepAliveClientMixin {
                       ),
                     );
                   }),
-//              child: ListView(
-//                key: ValueKey(widget.status),
-//                children: <Widget>[
-//                  Wrap(
-//                    key: ValueKey(widget.status),
-//                    children: _buildGridTileList(),
-//                  ),
-//                  Container(
-//                    height: 100,
-//                    child: Center(
-//                      child: _isLoading && _loadType == 'loadmore'
-//                          ? CircularProgressIndicator()
-//                          : Container(),
-//                    ),
-//                  )
-//                ],
-//              ),
             ),
           ),
         ),
