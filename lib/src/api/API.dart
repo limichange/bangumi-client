@@ -64,14 +64,23 @@ class API {
   Future updateRid(String rid) => post('/user/updateRid', {'rid': rid});
   Future getEpisodeLogsByAnime(String uuid) =>
       get('/episodeLog/getByAnime', queryParameters: {'uuid': uuid});
+
   Future saveEpisodeLog(String episodeUUID, String status) =>
       post('/episodeLog/save', {'episodeUUID': episodeUUID, 'status': status});
+
   Future getNewAnimeList() => get('/newAnime/page');
+
   Future appVersion() => get('/app/version');
+
+  Future getAnimeByTag(uuid) =>
+      get('/anime/getByTag', queryParameters: {'uuid': uuid});
+
   Future appUpdateLog() => get('/app/updateLog');
+
   Future addFeedback(String content, String type, String animeUuid) => post(
       '/feedback/add',
       {'content': content, 'type': type, 'animeUuid': animeUuid});
+
   Future login(String username, String password) =>
       post('/user/login', {'username': username, 'password': password});
 
@@ -80,6 +89,7 @@ class API {
       {'oldPassword': oldPassword, 'newPassword': newPassword});
 
   Future userInfo() => get('/user/info');
+
   Future singup({String username, String password, String nickname}) {
     return post('/user/signup',
         {'username': username, 'nickname': nickname, 'password': password});
