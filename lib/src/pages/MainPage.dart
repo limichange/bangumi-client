@@ -1,3 +1,4 @@
+import 'package:bangumi/src/JPushServer.dart';
 import 'package:bangumi/src/eventBus/UpdateMyLogListEvent.dart';
 import 'package:bangumi/src/eventBus/eventBus.dart';
 import 'package:bangumi/src/pages/HomePage/HomePage.dart';
@@ -46,36 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    JPush jpush = new JPush();
-
-    jpush.addEventHandler(
-      // 接收通知回调方法。
-      onReceiveNotification: (Map<String, dynamic> message) async {
-        print("flutter onReceiveNotification: $message");
-      },
-      // 点击通知回调方法。
-      onOpenNotification: (Map<String, dynamic> message) async {
-        print("flutter onOpenNotification: $message");
-      },
-      // 接收自定义消息回调方法。
-      onReceiveMessage: (Map<String, dynamic> message) async {
-        print("flutter onReceiveMessage: $message");
-      },
-    );
-
-    jpush.setup(
-      appKey: "37aa445df9565c858ab3e9ab",
-      channel: "mainChannel",
-      production: true,
-      debug: true, // 设置是否打印 debug 日志
-    );
-
-    jpush.applyPushAuthority(
-        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
-
-    jpush.getRegistrationID().then((rid) {
-      print(rid);
-    });
+    JPushServer.init(context);
   }
 
   @override

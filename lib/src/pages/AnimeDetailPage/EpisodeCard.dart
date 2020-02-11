@@ -47,30 +47,30 @@ class _EpisodeCard extends State<EpisodeCard> {
 
                       Navigator.pop(context);
                     }),
-                new ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('打开B站'),
-//                        Container(
-//                          child: Row(
-//                            children: <Widget>[
-//                              Checkbox(
-//                                value: true,
-//                              ),
-//                              Text('表为已看完')
-//                            ],
-//                          ),
-//                        )
-                      ],
-                    ),
-                    onTap: () async {
-                      var url = widget.episode.biliUrl;
-
-                      if (await canLaunch(url)) {
-                        await launch(url, forceSafariVC: false);
-                      }
-                    }),
+//                new ListTile(
+//                    title: Row(
+//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                      children: <Widget>[
+//                        Text('打开B站'),
+////                        Container(
+////                          child: Row(
+////                            children: <Widget>[
+////                              Checkbox(
+////                                value: true,
+////                              ),
+////                              Text('表为已看完')
+////                            ],
+////                          ),
+////                        )
+//                      ],
+//                    ),
+//                    onTap: () async {
+//                      var url = widget.episode.biliUrl;
+//
+//                      if (await canLaunch(url)) {
+//                        await launch(url, forceSafariVC: false);
+//                      }
+//                    }),
                 new ListTile()
               ],
             ),

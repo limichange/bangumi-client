@@ -1,3 +1,4 @@
+import 'package:bangumi/src/JPushServer.dart';
 import 'package:bangumi/src/components/MenuItem.dart';
 import 'package:bangumi/src/pages/AccountPage/AccountPage.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
@@ -28,6 +29,8 @@ class _MePage extends State<MePage> {
   @override
   void initState() {
     super.initState();
+
+    JPushServer.getRegistrationID();
 
     loadKey();
     loadVersion();

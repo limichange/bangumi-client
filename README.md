@@ -29,7 +29,8 @@ https://blog.csdn.net/SCHOLAR_II/article/details/80684896
 
 小米安卓商店 https://dev.mi.com/myitems/0/0?userId=406064860
 
-
 ios预审 https://wetest.qq.com/
 
 酷安 https://developer.coolapk.com/do?c=developer&m=applyDeveloper
+
+华为 https://developer.huawei.com/consumer/cn/console#/serviceCards/

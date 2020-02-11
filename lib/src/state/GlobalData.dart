@@ -1,3 +1,4 @@
+import 'package:bangumi/src/JPushServer.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
@@ -55,7 +56,14 @@ class GlobalData extends ChangeNotifier {
 
     if (_token != '') {
       _isLogin = true;
+
+      String rid = await JPushServer.getRegistrationID();
+
+      if (rid != null) {
+        api.updateRid(rid);
+      }
     }
+
     notifyListeners();
   }
 }

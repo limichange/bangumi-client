@@ -26,6 +26,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   Anime _anime = Anime(cover: '', name: '', desc: '', uuid: '');
   List<Episode> episodes = new List();
   bool _isLoading = true;
+  List<dynamic> tags = [];
 
   @override
   void initState() {
@@ -74,10 +75,13 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
     var res = await api.AnimeDetail(widget.uuid);
     Anime anime;
 
+    print(res['data']['tags']);
+
     if (res['status'] == 200) {
       anime = Anime.fromJson(res['data']);
 
       setState(() {
+        tags = res['data']['tags'];
         _anime = anime;
       });
     }
@@ -173,33 +177,46 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: StatusSelectButton(
-                                              key: UniqueKey(),
-                                              uuid: widget.uuid),
-                                        ),
-                                        Container(
-                                          width: 58,
-                                          padding: EdgeInsets.only(left: 8),
-                                          child: RaisedButton(
-                                            onPressed: () {
-                                              Utils.go(
-                                                  context,
-                                                  FeedbackPage(
-                                                    anime: _anime,
-                                                  ));
-                                            },
-                                            child: Icon(
-                                              Icons.feedback,
-                                              size: 18,
-                                              color: Colors.white,
-                                            ),
+                                    Container(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: StatusSelectButton(
+                                                key: UniqueKey(),
+                                                uuid: widget.uuid),
                                           ),
-                                        )
-                                      ],
+                                          Container(
+                                            width: 58,
+                                            padding: EdgeInsets.only(left: 8),
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                Utils.go(
+                                                    context,
+                                                    FeedbackPage(
+                                                      anime: _anime,
+                                                    ));
+                                              },
+                                              child: Icon(
+                                                Icons.feedback,
+                                                size: 18,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(bottom: 6),
+                                      child: Wrap(
+                                        children: tags.map((tag) {
+                                          return Container(
+                                            padding: EdgeInsets.only(right: 4),
+                                            child: Text(tag['value']),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
                                     Container(
                                       child: Container(

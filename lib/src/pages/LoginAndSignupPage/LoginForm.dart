@@ -1,3 +1,4 @@
+import 'package:bangumi/src/JPushServer.dart';
 import 'package:bangumi/src/state/GlobalData.dart';
 import 'package:bangumi/src/api/API.dart';
 import 'package:bangumi/src/utils/Utils.dart';
