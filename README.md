@@ -4,9 +4,9 @@
 
 ## Preview
 
-![previewImage1](https://github.com/limichange/bangumi-client/blob/master/preview/1.jpeg?raw=true)
-![previewImage2](https://github.com/limichange/bangumi-client/blob/master/preview/2.jpeg?raw=true)
-![previewImage3](https://github.com/limichange/bangumi-client/blob/master/preview/3.jpeg?raw=true)
+
+|---|---|---|
+|![previewImage1](https://github.com/limichange/bangumi-client/blob/master/preview/1.jpeg?raw=true)|![previewImage2](https://github.com/limichange/bangumi-client/blob/master/preview/2.jpeg?raw=true)|![previewImage3](https://github.com/limichange/bangumi-client/blob/master/preview/3.jpeg?raw=true)|
 
 ## Getting Started
 
