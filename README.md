@@ -4,6 +4,9 @@
 
 ## Preview
 
+ - [IOS](https://testflight.apple.com/join/UnI9YExN)
+ - [Android](https://fir.im/bangumi)
+
 <img src="https://github.com/limichange/bangumi-client/blob/master/preview/1.jpeg?raw=true" width="200"/>
 <img src="https://github.com/limichange/bangumi-client/blob/master/preview/2.jpeg?raw=true" width="200"/>
 <img src="https://github.com/limichange/bangumi-client/blob/master/preview/3.jpeg?raw=true" width="200"/>
