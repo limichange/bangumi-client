@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bangumi/src/api/API.dart';
+import 'package:bangumi/src/components/AnimeListItem.dart';
 import 'package:bangumi/src/components/NormalImage.dart';
 import 'package:bangumi/src/components/StatusSelectButton.dart';
 import 'package:bangumi/src/format.dart';
@@ -27,6 +29,7 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
   List<Episode> episodes = new List();
   bool _isLoading = true;
   List<dynamic> tags = [];
+  List<dynamic> _list = [];
 
   @override
   void initState() {
@@ -75,18 +78,31 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
     var res = await api.AnimeDetail(widget.uuid);
     Anime anime;
 
-    print(res['data']['tags']);
-
     if (res['status'] == 200) {
       anime = Anime.fromJson(res['data']);
 
-      setState(() {
+      if (res['data']['tags'] != null && res['data']['tags'].length > 0) {
+        var recommendsRes =
+            await api.getAnimeByTag(res['data']['tags'][0]['uuid']);
+
+        if (recommendsRes['status'] == 200) {
+          print(recommendsRes['data']);
+
+          recommendsRes['data']['data'].forEach((e) {
+            _list.add(Anime.fromJson(e));
+          });
+        }
+
         tags = res['data']['tags'];
+      }
+
+      setState(() {
         _anime = anime;
       });
     }
 
     setState(() {
+      print(1);
       _isLoading = false;
     });
   }
@@ -112,6 +128,12 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
         }).toList(),
       ),
     );
+  }
+
+  createRecommandsList() {
+    return _list.map((i) {
+      return AnimeListItem(key: ValueKey(i.uuid + 'AnimeListItem'), anime: i);
+    }).toList();
   }
 
   @override
@@ -281,11 +303,17 @@ class _AnimeDetailPage extends State<AnimeDetailPage> {
                           ),
                         ),
                         Container(
-                          margin: new EdgeInsets.only(top: 100),
+                          margin: new EdgeInsets.only(top: 10),
                         )
                       ],
                     ),
                   ),
+                  Container(
+                    transform: Matrix4.translationValues(0.0, -80.0, 0.0),
+                    child: Column(
+                      children: createRecommandsList(),
+                    ),
+                  )
                 ]),
               ),
             ),
